@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'store_name' => 'nama toko',
+    'starting_at' => 'Mulai dari  ',
+    'format_price' => 'Rp. ',
+    'format_price_decimal' => ',00',
+    'shop_now' => 'Order Sekarang',
+    'order_now' => 'Pesan Sekarang',
+    'load_more' => 'Muat Semua',
+    'add_to_cart' => 'Masukan Keranjang',
+    'quick_view' => 'Lihat',
+    'home' => 'Beranda',
+    'category' => 'Kategori',
+    'cart' => 'Keranjang',
+    'about' => 'Tentang Kami',
+    'contact' => 'Kontak',
+    'new_arrivals' => 'Produk Baru',
+    'brands' => 'Merek',
+    'attractive_offer' => 'Penawaran Menarik',
+    'popular_sell' => 'Penjualan Populer',
+    'popular_sell_desc' => 'Favorit pelanggan kami, jangan sampai kehabisan!',
+    'you_might_like' => 'Mungkin Kamu Suka',
+    'featured_products' => 'Produk Unggulan',
+];
