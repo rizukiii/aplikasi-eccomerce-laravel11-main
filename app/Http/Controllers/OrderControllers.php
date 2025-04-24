@@ -19,12 +19,12 @@ class OrderControllers extends Controller
         $this->orderService = $orderService;
     }
 
-    public function saveOrder(StoreOrderRequest $request, Products $id){
+    public function saveOrder(StoreOrderRequest $request, Products $product){
         $validated = $request->validated();
-        $validated['products_id'] = $id->id;
-dd($id);
+        $validated['products_id'] = $product->id;
+
         $this->orderService->beginOrder($validated);
-        return redirect()->route('front.booking', $id->id);
+        return redirect()->route('front.booking', $product->slug);
     }
 
     public function booking(){

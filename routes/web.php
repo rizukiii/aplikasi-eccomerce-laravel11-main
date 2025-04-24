@@ -8,7 +8,7 @@ Route::get('/',[FrontControllers::class, 'index'])->name('front.index');
 Route::get('/browse/{category:slug}',[FrontControllers::class, 'category'])->name('front.category');
 Route::get('/details/{products:slug}',[FrontControllers::class, 'details'])->name('front.details');
 
-Route::post('/order/begin/{id}',[OrderControllers::class, 'saveOrder'])->name('front.save_order');
+Route::post('/order/begin/{products:slug}',[OrderControllers::class, 'saveOrder'])->name('front.save_order');
 Route::get('/order/booking',[OrderControllers::class, 'booking'])->name('front.booking');
 
 Route::get('/order/booking/customer-data',[OrderControllers::class, 'customerData'])->name('front.customer_data');
