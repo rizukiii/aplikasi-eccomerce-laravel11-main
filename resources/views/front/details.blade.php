@@ -75,7 +75,7 @@
                     <div class="product-single__short-desc">
                         <p>{{ $prod->about }}</p>
                     </div>
-                    <form name="addtocart-form" method="POST" action="{{ route('front.save_order', $prod->slug) }}">
+                    <form name="addtocart-form" method="POST" action="{{ route('front.save_order', $prod->id) }}">
                         @csrf
                         <div class="product-single__addtocart">
                             <!-- Size Select -->
@@ -90,14 +90,14 @@
 
                             <!-- Quantity Selector -->
                             <div class="qty-control position-relative">
-                                <input type="number" name="quantity" value="1" min="1" class="qty-control__number text-center">
+                                <input type="number" name="stock" value="1" min="1" class="qty-control__number text-center">
                                 <div class="qty-control__reduce">-</div>
                                 <div class="qty-control__increase">+</div>
                             </div>
 
                             <!-- Submit Button -->
-                            <button type="submit" class="btn btn-primary btn-addtocart js-open-aside" data-aside="cartDrawer">
-                                Add to Cart
+                            <button type="submit" class="btn btn-primary btn-addtocart" data-aside="cartDrawer">
+                               Beli
                             </button>
                         </div>
                     </form>

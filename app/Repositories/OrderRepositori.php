@@ -15,32 +15,25 @@ class OrderRepositori implements OrderRepositoriInterface
 
     public function findByTrxIdAndPhoneNumber($bookingTrxId, $phoneNumnber)
     {
-        return ProductTransactions::where('booking_trx_id', $bookingTrxId)
-            ->where('phone_number', $phoneNumnber)
-            ->first();
+        return ProductTransactions::where('booking_trx_id',$bookingTrxId)
+                                    ->where('phone_number',$phoneNumnber)
+                                    ->first();
     }
 
     public function saveToSession(array $data)
     {
-        // Ambil data lama
-        $orderData = session('orderData', []);
-
-        // Tambah data baru ke array lama
-        $orderData[] = $data;
-
-        // Simpan kembali ke session
-        session(['orderData' => $orderData]);
+        Session::put('orderData', $data);
     }
 
     public function getOrderDataFromSession()
     {
-        return session('orderData', []);
+        return session('orderData',[]);
 
     }
 
     public function updateSessionData(array $data)
     {
-        $orderData = session('orderData', []);
+        $orderData = session('orderData',[]);
         $orderData = array_merge($orderData, $data);
         session(['orderData' => $orderData]);
     }

@@ -36,8 +36,13 @@ class FrontControllers extends Controller
 
     public function category($cat)
     {
-        $cat = Categories::where('slug', $cat)->with('product.photos')->first();
-        return view('front.category', compact('cat'));
+        $cat = Categories::where('slug', $cat)->with(relations: ['product.photos','product.sizes'])->first();
+        // foreach ($cat->product as $value) {
+        //     echo json_encode($value , JSON_PRETTY_PRINT);
+        // }
 
+        // die("done");
+        // die("<pre>".json_encode($cat,JSON_PRETTY_PRINT)."</pre>");
+        return view('front.category', compact('cat'));
     }
 }

@@ -42,19 +42,6 @@
       }
     }
   }'>
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-                    @if (session()->has('orderData'))
-                        <p>Order Data: <pre>{{ json_encode(session('orderData'), JSON_PRETTY_PRINT) }}</pre>
-                        </p>
-                    @else
-                        <p>No order data in session.</p>
-                    @endif
-
-
                     <div class="swiper-wrapper">
                         @foreach ($cat->product as $product)
                             <div class="swiper-slide product-card">
@@ -64,20 +51,6 @@
                                             height="313" alt="{{ $product->name }}"
                                             class="pc__img {{ $loop->last ? 'pc__img-second' : '' }}">
                                     @endforeach
-                                    <form action="{{ route('front.save_order', $product->slug) }}" method="post">
-                                        @csrf
-                                        @php
-                                            $firstSize = $product->sizes->first();
-                                        @endphp
-                                        @if ($firstSize)
-                                            <input type="hidden" name="product_size" value="{{ $firstSize->size }}">
-                                            <input type="hidden" name="size_id" value="{{ $firstSize->id }}">
-                                        @endif
-
-                                        <button
-                                            class="pc__atc btn anim_appear-bottom btn position-absolute border-0 text-uppercase fw-medium js-add-cart "
-                                            title="Add To Cart" type="submit">{{ __('front.add_to_cart') }}</button>
-                                    </form>
                                 </div>
 
                                 <div class="pc__info position-relative">

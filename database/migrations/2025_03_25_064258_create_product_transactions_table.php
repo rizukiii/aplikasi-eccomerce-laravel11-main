@@ -30,7 +30,7 @@ return new class extends Migration
             $table->unsignedBigInteger('grand_total_amount');
             $table->unsignedBigInteger('discount_amount');
             $table->boolean('is_paid');
-            $table->foreignIdFor(Products::class);
+            $table->foreignIdFor(model: Products::class);
             $table->foreignIdFor(PromoCodes::class)->nullable();
             $table->timestamps();
         });
