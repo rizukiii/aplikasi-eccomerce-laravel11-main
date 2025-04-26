@@ -1,7 +1,7 @@
 @extends('layouts.front')
 
 @section('title', 'Detail Produk')
-{{-- @dd($prod) --}}
+
 @section('content')
     <main class="pt-90">
         <div class="mb-md-1 pb-md-3"></div>
@@ -68,6 +68,15 @@
                         <div class="reviews-group d-flex">
                         </div>
                     </div>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <div class="product-single__price">
                         <span
                             class="current-price">{{ __('front.format_price') }}{{ number_format($prod->price, 0, ',', '.') }}</span>
@@ -75,33 +84,28 @@
                     <div class="product-single__short-desc">
                         <p>{{ $prod->about }}</p>
                     </div>
-                    <form name="addtocart-form" method="POST" action="{{ route('front.save_order', $prod->id) }}">
+                    <form id="addtocart-form" method="POST" action="{{ route('front.save_order', $prod->slug) }}">
                         @csrf
+                        <input type="hidden" name="products_id" value="{{ $prod->id }}">
                         <div class="product-single__addtocart">
-                            <!-- Size Select -->
                             <div class="qty-control position-relative mb-2">
-                                <select name="size_id" class="form-control" required>
+
+                                <select name="size_id" required onchange="updateProductSize(this)">
                                     <option value="">-- Pilih Size --</option>
-                                    @foreach($prod->sizes as $size)
-                                        <option value="{{ $size->id }}">{{ $size->size }}</option>
+                                    @foreach ($prod->sizes as $size)
+                                        <option value="{{ $size->id }}" data-size="{{ $size->size }}">
+                                            {{ $size->size }}</option>
                                     @endforeach
                                 </select>
+                                <input type="hidden" name="product_size" id="product_size_input">
+                                <input type="hidden" name="quantity" value="1">
+
                             </div>
 
-                            <!-- Quantity Selector -->
-                            <div class="qty-control position-relative">
-                                <input type="number" name="stock" value="1" min="1" class="qty-control__number text-center">
-                                <div class="qty-control__reduce">-</div>
-                                <div class="qty-control__increase">+</div>
-                            </div>
-
-                            <!-- Submit Button -->
-                            <button type="submit" class="btn btn-primary btn-addtocart" data-aside="cartDrawer">
-                               Beli
-                            </button>
+                            <button type="submit" class="btn btn-primary btn-addtocart" data-aside="cartDrawer">Masukan
+                                Keranjang</button>
                         </div>
                     </form>
-
                     <!-- Cart Drawer HTML (wajib ada) -->
                     <div id="cartDrawer" class="aside cart-drawer" style="display: none;">
                         <div class="aside-header">Your Cart</div>
@@ -113,43 +117,6 @@
                             <button class="btn btn-success">Checkout</button>
                         </div>
                     </div>
-
-                    <!-- JS Functionality -->
-                    <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                      // Quantity control
-                      const qtyControl = document.querySelector('.qty-control');
-                      if (qtyControl) {
-                        const input = qtyControl.querySelector('input[name="quantity"]');
-                        const btnMinus = qtyControl.querySelector('.qty-control__reduce');
-                        const btnPlus = qtyControl.querySelector('.qty-control__increase');
-
-                        btnPlus.addEventListener('click', function () {
-                          let val = parseInt(input.value);
-                          input.value = val + 1;
-                        });
-
-                        btnMinus.addEventListener('click', function () {
-                          let val = parseInt(input.value);
-                          if (val > 1) {
-                            input.value = val - 1;
-                          }
-                        });
-                      }
-
-                      // Inisialisasi aside drawer
-                      if (typeof UomoElements !== 'undefined' && UomoElements.Aside) {
-                        new UomoElements.Aside();
-                      }
-
-                      // Inisialisasi cart drawer (jika ada)
-                      if (typeof UomoSections !== 'undefined' && UomoSections.CartDrawer) {
-                        new UomoSections.CartDrawer();
-                      }
-                    });
-                    </script>
-
-
 
                     <div class="product-single__meta-info">
                         <div class="meta-item">

@@ -13,7 +13,7 @@ class StoreOrderRequest extends FormRequest
     {
         return true;
     }
-// 
+//
     /**
      * Get the validation rules that apply to the request.
      *
@@ -22,8 +22,10 @@ class StoreOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'quantity' => ['required','numeric'],
             'product_size' => ['required','string','max:255'],
-            'size_id' => ['required', 'integer', 'min:1']
+            'size_id' => ['required', 'integer', 'min:1'],
+            'products_id' => ['required', 'numeric']
         ];
     }
 }

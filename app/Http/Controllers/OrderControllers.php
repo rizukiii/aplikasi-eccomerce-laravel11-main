@@ -19,7 +19,11 @@ class OrderControllers extends Controller
         $this->orderService = $orderService;
     }
 
-    public function saveOrder(StoreOrderRequest $request, Products $product){
+    public function saveOrder(StoreOrderRequest $request, $slug)
+    {
+        // dd($request);
+        // Ambil produk berdasarkan slug
+        $product = Products::where('slug', $slug)->first();
         $validated = $request->validated();
         $validated['products_id'] = $product->id;
 
@@ -27,39 +31,52 @@ class OrderControllers extends Controller
         return redirect()->route('front.booking', $product->slug);
     }
 
-    public function booking(){
+    public function booking()
+    {
         $data = $this->orderService->getOrderDetails();
-        return view('order.order',$data);
+
+        // Debug untuk memastikan bentuknya
+    // dd($data);
+        return view('order.order', $data);
     }
 
-    public function customerData(){
+    public function customerData()
+    {
         $data = $this->orderService->getOrderDetails();
-        return view('order.customer_order',$data);
+        return view('order.customer_order', $data);
     }
 
-    public function saveCustomerData(StoreCustomerDataRequest $request){
+    public function saveCustomerData(StoreCustomerDataRequest $request)
+    {
+        // dd( $request);
         $validated = $request->validated();
         $this->orderService->updateCustomerData($validated);
 
         return redirect()->route('front.payment');
     }
 
-    public function payment(){
+    public function payment()
+    {
         $data = $this->orderService->getOrderDetails();
-        return view('order.payment',$data);
+        return view('order.payment', $data);
     }
 
-    public function paymentConfirm(StorePayementRequest $request){
+    public function paymentConfirm(StorePayementRequest $request)
+    {
         $validated = $request->validated();
-        $productTransactionId = $this->orderService->paymentConfirm($validated);
+        // dd( $validated);
+        // dd(session()->all());
 
+        $productTransactionId = $this->orderService->paymentConfirm($validated);
+// dd( $productTransactionId);
         if ($productTransactionId) {
             return redirect()->route('front.order_finished', $productTransactionId);
         }
-        return redirect()->route('front.index')->withErrors(['error' => 'Payment failed. Please try again']);
+        return redirect()->back()->withErrors(['error' => 'Payment failed. Please try again']);
     }
 
-    public function orderFinished(ProductTransactions $productTransaction){
-        return view('front.order_finished',compact('productTransaction'));
+    public function orderFinished(ProductTransactions $productTransaction)
+    {
+        return view('order.order_finished', compact('productTransaction'));
     }
 }

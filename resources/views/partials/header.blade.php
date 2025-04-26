@@ -140,21 +140,6 @@
                     <li class="navigation__item">
                         <a href="{{ route('front.index') }}" class="navigation__link">{{ __('front.home') }}</a>
                     </li>
-                    <li class="navigation__item dropdown">
-                        <a href="#" class="navigation__link dropdown-toggle" data-bs-toggle="dropdown">
-                            Kategori
-                        </a>
-                        <ul class="dropdown-menu">
-                            @foreach ($categories as $category)
-                                <li>
-                                    <a class="dropdown-item" href="{{ route('front.category', $category->slug) }}">
-                                        {{ $category->name }}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </li>
-
                     <li class="navigation__item">
                         <a href="{{ route('front.booking') }}" class="navigation__link">Cart</a>
                     </li>

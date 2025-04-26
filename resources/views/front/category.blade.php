@@ -5,7 +5,7 @@
 @section('content')
     <main class="pt-90">
         <section class="products-carousel container mt-5">
-            <h2 class="h3 text-uppercase mb-4 pb-xl-2 mb-xl-4">Kategori {{ $cat->name }}<strong></strong></h2>
+            <h2 class="h3 text-uppercase mb-4 pb-xl-2 mb-xl-4">Kategori<strong></strong></h2>
 
             <div id="related_products" class="position-relative">
                 <div class="swiper-container js-swiper-slider"
@@ -46,11 +46,8 @@
                         @foreach ($cat->product as $product)
                             <div class="swiper-slide product-card">
                                 <div class="pc__img-wrapper">
-                                    @foreach ($product->photos->take(2) as $photo)
-                                        <img loading="lazy" src="{{ Storage::url($photo->photo) }}" width="258"
-                                            height="313" alt="{{ $product->name }}"
-                                            class="pc__img {{ $loop->last ? 'pc__img-second' : '' }}">
-                                    @endforeach
+                                    <img loading="lazy" src="{{ Storage::url($product->thumbnail) }}" width="258"
+                                        height="313" alt="{{ $product->name }}" class="pc__img">
                                 </div>
 
                                 <div class="pc__info position-relative">

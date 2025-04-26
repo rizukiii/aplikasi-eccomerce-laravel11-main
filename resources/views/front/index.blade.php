@@ -10,7 +10,7 @@
 
         {{-- @include('front.sections.popular') --}}
 
-        @include('front.sections.category')
+        {{-- @include('front.sections.category') --}}
 
         {{-- @include('front.sections.banner') --}}
 

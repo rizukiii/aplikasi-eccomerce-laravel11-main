@@ -24,19 +24,19 @@ class FrontControllers extends Controller
         return view('front.index', $data);
     }
 
-    public function details($prod)
+    public function details(Products $products)
     {
         // pengambilan data menggunakan method model binding
-        $prod = Products::with('photos', 'sizes', 'categories', 'brands')->first();
+        // $products = Products::with('photos', 'sizes', 'categories', 'brands')->first();
+        $prod = $products;
 
-        // dd($prod);
         $allProduct = Products::with('categories')->get();
         return view('front.details', compact('prod', 'allProduct'));
     }
 
-    public function category($cat)
+    public function category($slug)
     {
-        $cat = Categories::where('slug', $cat)->with('product.photos')->first();
+        $cat = Categories::where('slug', $slug)->with('product.photos')->first();
         return view('front.category', compact('cat'));
 
     }
