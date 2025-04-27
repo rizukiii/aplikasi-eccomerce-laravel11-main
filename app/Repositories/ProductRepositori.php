@@ -4,6 +4,8 @@ namespace App\Repositories;
 
 use App\Models\Brands;
 use App\Models\Products;
+use App\Models\ProductSizes;
+use App\Models\PromoCodes;
 use App\Repositories\Contracts\ProductRepositoriInterface;
 use Carbon\Carbon;
 
@@ -46,4 +48,10 @@ class ProductRepositori implements ProductRepositoriInterface
         return Brands::all();
     }
 
+    public function findProductSize($id){
+        return ProductSizes::find($id);
+    }
+    public function findPromoCode($code){
+        return PromoCodes::where('code',$code)->first();
+    }
 }

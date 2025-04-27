@@ -83,7 +83,7 @@
                                             <!-- Quantity dibatasi berdasarkan stok -->
                                             <input type="number" name="quantity" value="{{ old('quantity', $orderData['quantity'] ?? 1) }}"
                                                 min="1" max="{{ $product->stock }}"
-                                                class="qty-control__number text-center">
+                                                class="qty-control__number text-center" required>
 
                                         </div>
                                     </td>
@@ -101,7 +101,7 @@
 
                         <input class="form-control" type="text" name="coupon_code" placeholder="{{ __('order.coupon_code') }}">
                         <input type="hidden" name="sub_total_amount" value="{{ $orderData['sub_total_amount'] }}">
-                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <input type="hidden" name="products_id" value="{{ $product->id }}">
                         <button type="submit" class="btn btn-light">{{ __('order.update_cart') }}</button>
                         </form>
                     </div>

@@ -12,6 +12,8 @@ interface ProductRepositoriInterface
     public function getRandomProductByThisWeek($limit);
     public function getLatestProducts($limit);
     public function getAllBrands();
+    public function findProductSize($id);
+    public function findPromoCode($code);
 
 
 }

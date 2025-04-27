@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\ProductSizes;
 use App\Models\ProductTransactions;
+use App\Models\PromoCodes;
 use App\Repositories\Contracts\CategoryRepositoriInterface;
 use App\Repositories\Contracts\OrderRepositoriInterface;
 use App\Repositories\Contracts\ProductRepositoriInterface;
@@ -157,5 +159,52 @@ class OrderService
             return null;
         }
         return $productTransactionId;
+    }
+
+    /**
+     * Validasi dan update cart dengan data terbaru
+     *
+     * @param array $validated
+     * @return array
+     */
+    public function updateCartData(array $validated)
+    {
+        // dd( $validated);
+        // Ambil produk berdasarkan ID
+        $product = $this->productRepository->find($validated['products_id']);
+
+        // Cari size berdasarkan ID
+        $productSize = $this->productRepository->findProductSize($validated['size']);
+
+        // Siapkan data order
+        $orderData = [
+            'product_size' => $productSize->size, // Ambil nama size-nya
+            'size_id' => $productSize->id, // (optional) kalau mau simpan ID juga
+            'quantity' => $validated['quantity'],
+            'products_id' => $product->id,
+        ];
+
+        // Jika ada coupon code, proses promo code
+        if (!empty($validated['coupon_code'])) {
+            $promoResult = $this->applyPromoCode($validated['coupon_code'], $validated['sub_total_amount']);
+
+            // Cek error dari promo
+            if (isset($promoResult['error'])) {
+                return $promoResult;
+            }
+
+            // Update hasil promo ke orderData
+            $orderData['discount_amount'] = $promoResult['discount_amount'];
+            $orderData['grand_total_amount'] = $promoResult['grand_total_amount'];
+            $orderData['promo_code'] = $validated['coupon_code']; // Tetap simpan code
+
+            // Cari ID dari promo code
+            $promo = $this->productRepository->findPromoCode($validated['coupon_code']);
+            if ($promo) {
+                $orderData['promo_codes_id'] = $promo->id;
+            }
+        }
+
+        return $orderData;
     }
 }
