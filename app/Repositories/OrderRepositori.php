@@ -22,9 +22,7 @@ class OrderRepositori implements OrderRepositoriInterface
 
     public function saveToSession(array $data)
     {
-        $orderData = session('orderData', []);
-        $orderData[] = $data; // Tambah data baru
-        Session::put('orderData', $orderData);
+        Session::put('orderData', $data);
     }
 
 

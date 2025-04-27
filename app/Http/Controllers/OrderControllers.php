@@ -20,17 +20,16 @@ class OrderControllers extends Controller
         $this->orderService = $orderService;
     }
 
-    // public function saveOrder(StoreOrderRequest $request, $slug)
-    // {
-    //     // dd($request);
-    //     // Ambil produk berdasarkan slug
-    //     $product = Products::where('slug', $slug)->first();
-    //     $validated = $request->validated();
-    //     $validated['products_id'] = $product->id;
+    public function saveOrder(StoreOrderRequest $request, $slug)
+    {
+        // dd($request);
+        // Ambil produk berdasarkan slug
+        $validated = $request->validated();
+        $product = Products::where('slug', $slug)->first();
 
-    //     $this->orderService->beginOrder($validated);
-    //     return redirect()->route('front.booking', $product->slug);
-    // }
+        $this->orderService->beginOrder($validated);
+        return redirect()->route('front.booking', $product->slug);
+    }
 
     public function booking()
     {
@@ -142,54 +141,5 @@ class OrderControllers extends Controller
         $productTransaction = ProductTransactions::findOrFail($id);
         return view('order.order_finished', compact('productTransaction'));
     }
-
-    // public function saveOrder(StoreOrderRequest $request, $slug)
-    // {
-    //     // dd($request);
-    //     // Ambil produk berdasarkan slug
-    //     $product = Products::where('slug', $slug)->first();
-    //     $validated = $request->validated();
-    //     $validated['products_id'] = $product->id;
-
-    //     $this->orderService->beginOrder($validated);
-    //     return redirect()->route('front.booking', $product->slug);
-    // }
-
-    public function saveOrder(Request $request, $slug)
-    {
-        $request->validate([
-            'quantity' => ['required', 'numeric', 'min:1'],
-            'size_id' => ['required', 'integer', 'min:1'],
-        ]);
-
-        $validated = $request->only([
-            'quantity',
-            'size_id',
-        ]);
-
-        // Cari produk berdasarkan slug
-        $product = Products::where('slug', $slug)->firstOrFail();
-
-        // Ambil size berdasarkan size_id yang dikirimkan
-        $productSize = $product->sizes->where('id', $validated['size_id'])->first();
-
-        // Jika ukuran produk tidak ditemukan, set default atau kosong
-        $productSize = $productSize ? $productSize->size : '';
-
-        // Menyiapkan data untuk disimpan dalam session
-        $orderData = [
-            'products_id' => $product->id,
-            'product_size' => $productSize,
-            'size_id' => $validated['size_id'],
-            'quantity' => $validated['quantity'],
-        ];
-
-        // Simpan ke dalam session
-        Session::put('orderData', $orderData);
-
-        // Redirect ke halaman booking
-        return redirect()->route('front.booking', $product->slug);
-    }
-
 }
 

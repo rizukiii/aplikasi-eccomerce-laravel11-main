@@ -15,5 +15,6 @@
         @include('front.sections.banner')
 
         @include('front.sections.all_product')
+        {{ Session::flush() }}
     </main>
 @endsection

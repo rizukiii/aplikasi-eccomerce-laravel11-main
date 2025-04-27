@@ -88,6 +88,7 @@
                     </div>
                     <form id="addtocart-form" method="POST" action="{{ route('front.save_order', $product->slug) }}">
                         @csrf
+                        <input type="hidden" name="products_id" value="{{ $product->id }}">
                         <div class="product-single__addtocart">
                             <!-- SIZE SELECT -->
                             <div class="qty-control position-relative mb-2">

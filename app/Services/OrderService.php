@@ -31,13 +31,22 @@ class OrderService
 
     public function beginOrder(array $data)
     {
-        // dd($data); // Debug data yang diterima
+        // Ambil produk berdasarkan ID
+        $product = $this->productRepository->find($data['products_id']);
+
+        // Ambil size berdasarkan size_id yang dikirimkan
+        $productSize = $product->sizes->where('id', $data['size_id'])->first();
+        $productSize = $productSize ? $productSize->size : '';  // Set default jika tidak ditemukan
+
+        // Menyiapkan data untuk disimpan dalam session
         $orderData = [
-            'product_size' => $data['product_size'],
+            'products_id' => $product->id,
+            'product_size' => $productSize,
             'size_id' => $data['size_id'],
-            'products_id' => $data['products_id']
+            'quantity' => $data['quantity'],
         ];
 
+        // Simpan ke dalam session
         $this->orderRepository->saveToSession($orderData);
     }
 
@@ -72,28 +81,6 @@ class OrderService
         // Return data untuk digunakan di view
         return compact('orderData', 'product');
     }
-
-    //     public function getOrderDetails()
-//     {
-//         $orderData = $this->orderRepository->getOrderDataFromSession();
-// // dd($orderData);
-//         $product = $this->productRepository->find($orderData['products_id']);
-
-    //         $quantity = isset($orderData['quantity']) ? $orderData['quantity'] : 1;
-
-    //         $subtotalAmount = $product->price * $quantity;
-
-    //         $taxRate = 0.11;
-//         $totalTax = $subtotalAmount * $taxRate;
-
-    //         $grandtotalAmount = $subtotalAmount + $totalTax;
-
-    //         $orderData['sub_total_amount'] = $subtotalAmount;
-//         $orderData['total_tax'] = $totalTax;
-//         $orderData['grand_total_amount'] = $grandtotalAmount;
-
-    //         return compact('orderData', 'product');
-//     }
 
     public function applyPromoCode(string $code, int $subtotalAmount)
     {
