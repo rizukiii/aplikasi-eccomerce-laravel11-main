@@ -41,16 +41,17 @@ class OrderService
         $this->orderRepository->saveToSession($orderData);
     }
 
+
     public function getOrderDetails()
     {
         $orderData = $this->orderRepository->getOrderDataFromSession();
-        // dd($orderData['products_id']);
+
         $product = $this->productRepository->find($orderData['products_id']);
-        // dd($product);
+
         $quantity = isset($orderData['quantity']) ? $orderData['quantity'] : 1;
 
         $subtotalAmount = $product->price * $quantity;
-        //
+
         $taxRate = 0.11;
         $totalTax = $subtotalAmount * $taxRate;
 
@@ -109,8 +110,8 @@ class OrderService
                 $validated['quantity'] = $orderData['quantity'];
                 $validated['sub_total_amount'] = $orderData['sub_total_amount'];
                 $validated['grand_total_amount'] = $orderData['grand_total_amount'];
-                $validated['discount_amount'] = $orderData['discount_amount'];
-                $validated['promo_codes_id'] = $orderData['promo_codes_id'];
+                $validated['discount_amount'] = $orderData['discount_amount'] ?? 0;
+                $validated['promo_codes_id'] = $orderData['promo_codes_id'] ?? null;
                 $validated['name'] = $orderData['name'];
                 $validated['email'] = $orderData['email'];
                 $validated['phone'] = $orderData['phone'];
@@ -123,6 +124,8 @@ class OrderService
                 $newTransaction = $this->orderRepository->createTransaction($validated);
                 // dd( $newTransaction);
                 $productTransactionId = $newTransaction->id;
+                // dd($productTransactionId);
+                return $productTransactionId;
             });
 
         } catch (\Exception $e) {

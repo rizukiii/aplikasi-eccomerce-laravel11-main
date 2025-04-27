@@ -12,10 +12,10 @@
                         <div class="product-single__image">
                             <div class="swiper-container">
                                 <div class="swiper-wrapper">
-                                    @foreach ($prod->photos as $photo)
+                                    @foreach ($product->photos as $photo)
                                         <div class="swiper-slide product-single__image-item">
                                             <img loading="lazy" class="h-auto" src="{{ Storage::url($photo->photo) }}"
-                                                width="674" height="674" alt="{{ $prod->name }}" />
+                                                width="674" height="674" alt="{{ $product->name }}" />
                                             <a data-fancybox="gallery" href="{{ Storage::url($photo->photo) }}"
                                                 data-bs-toggle="tooltip" data-bs-placement="left" title="Zoom">
                                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -39,10 +39,10 @@
                         <div class="product-single__thumbnail">
                             <div class="swiper-container">
                                 <div class="swiper-wrapper">
-                                    @foreach ($prod->photos as $photo)
+                                    @foreach ($product->photos as $photo)
                                         <div class="swiper-slide product-single__image-item">
                                             <img loading="lazy" class="h-auto" src="{{ Storage::url($photo->photo) }}"
-                                                width="104" height="104" alt="{{ $prod->name }}" />
+                                                width="104" height="104" alt="{{ $product->name }}" />
                                         </div>
                                     @endforeach
                                 </div>
@@ -63,7 +63,7 @@
                             class="product-single__prev-next d-flex align-items-center justify-content-between justify-content-md-end flex-grow-1">
                         </div><!-- /.shop-acs -->
                     </div>
-                    <h1 class="product-single__name">{{ $prod->name }}</h1>
+                    <h1 class="product-single__name">{{ $product->name }}</h1>
                     <div class="product-single__rating">
                         <div class="reviews-group d-flex">
                         </div>
@@ -79,31 +79,35 @@
                     @endif
                     <div class="product-single__price">
                         <span
-                            class="current-price">{{ __('front.format_price') }}{{ number_format($prod->price, 0, ',', '.') }}</span>
+                            class="current-price">{{ __('front.format_price') }}{{ number_format($product->price, 0, ',', '.') }}</span>
                     </div>
                     <div class="product-single__short-desc">
-                        <p>{{ $prod->about }}</p>
+                        <p>{{ $product->about }}</p>
                     </div>
-                    <form id="addtocart-form" method="POST" action="{{ route('front.save_order', $prod->slug) }}">
+                    <form id="addtocart-form" method="POST" action="{{ route('front.save_order', $product->slug) }}">
                         @csrf
-                        <input type="hidden" name="products_id" value="{{ $prod->id }}">
                         <div class="product-single__addtocart">
-                            <div class="qty-control position-relative mb-2">
 
-                                <select name="size_id" required onchange="updateProductSize(this)">
+                            <!-- SIZE SELECT -->
+                            <div class="qty-control position-relative mb-2">
+                                <select name="size_id" required>
                                     <option value="">-- Pilih Size --</option>
-                                    @foreach ($prod->sizes as $size)
-                                        <option value="{{ $size->id }}" data-size="{{ $size->size }}">
-                                            {{ $size->size }}</option>
+                                    @foreach ($product->sizes as $size)
+                                        <option value="{{ $size->id }}">{{ $size->size }}</option>
                                     @endforeach
                                 </select>
-                                <input type="hidden" name="product_size" id="product_size_input">
-                                <input type="hidden" name="quantity" value="1">
-
                             </div>
 
-                            <button type="submit" class="btn btn-primary btn-addtocart" data-aside="cartDrawer">Masukan
-                                Keranjang</button>
+                            <!-- QUANTITY CONTROL -->
+                            <div class="qty-control position-relative" data-product-id="{{ $product->id }}">
+                                <input type="number" name="quantity" value="1" min="1" max="{{ $product->stok }}"
+                                    class="qty-control__number text-center" readonly>
+                                <div class="qty-control__reduce" style="cursor:pointer;">-</div>
+                                <div class="qty-control__increase" style="cursor:pointer;">+</div>
+                            </div>
+
+                            <!-- SUBMIT -->
+                            <button type="submit" class="btn btn-primary btn-addtocart">Masukkan Keranjang</button>
                         </div>
                     </form>
                     <!-- Cart Drawer HTML (wajib ada) -->
@@ -121,7 +125,7 @@
                     <div class="product-single__meta-info">
                         <div class="meta-item">
                             <label>Size:</label>
-                            @forelse($prod->sizes as $size)
+                            @forelse($product->sizes as $size)
                                 {{ $size->size }}{{ !$loop->last ? ', ' : '' }}
                             @empty
                                 N/A
@@ -130,12 +134,12 @@
 
                         <div class="meta-item">
                             <label>Category:</label>
-                            <span>{{ $prod->categories->name ?? 'N/A' }}</span>
+                            <span>{{ $product->categories->name ?? 'N/A' }}</span>
                         </div>
 
                         <div class="meta-item">
                             <label>Brand:</label>
-                            <span>{{ $prod->brands->name ?? 'N/A' }}</span>
+                            <span>{{ $product->brands->name ?? 'N/A' }}</span>
                         </div>
 
                     </div>

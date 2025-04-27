@@ -23,7 +23,7 @@ class ProductTransactions extends Model
         return $this->belongsTo(PromoCodes::class, 'promo_codes_id');
     }
 
-    public function uniqGenerateTrxId(){
+    public static function uniqGenerateTrxId(){
         $prefix='PTO';
         do {
             $randomString = $prefix.mt_rand(1000,9999);

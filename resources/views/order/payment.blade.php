@@ -3,155 +3,123 @@
 @section('title', 'Order')
 
 @section('content')
-    <main class="pt-90">
+    <main>
         <div class="mb-4 pb-4"></div>
         <section class="shop-checkout container">
             <h2 class="page-title">Payment</h2>
             <div class="checkout-steps">
-                <a href="checkout.html" class="checkout-steps__item active">
+                <a href="order-confirmation.html" class="checkout-steps__item">
                     <span class="checkout-steps__item-number">03</span>
                     <span class="checkout-steps__item-title">
-                        <span>Payment</span>
-                        <em>Pay Your Items List</em>
+                        <span>Process Payment</span>
+                        <em>Pay And Submit Your Order List</em>
                     </span>
                 </a>
             </div>
-            <br>
-            <br>
-            <div class="checkout__payment-methods col-6">
-                <div class="form-check">
-                    <input class="form-check-input form-check-input_fill" type="radio" name="checkout_payment_method"
-                        id="checkout_payment_method_1" checked>
-                    <label class="form-check-label" for="checkout_payment_method_1">
-                        Direct bank transfer
-                        <p class="option-detail">
-                            Make your payment directly into our bank account. Please use your Order ID as
-                            the payment
-                            reference.Your order will not be shipped until the funds have cleared in our
-                            account.
-                        </p>
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input form-check-input_fill" type="radio" name="checkout_payment_method"
-                        id="checkout_payment_method_2">
-                    <label class="form-check-label" for="checkout_payment_method_2">
-                        Qris
-                        <p class="option-detail">
-                            Phasellus sed volutpat orci. Fusce eget lore mauris vehicula elementum gravida
-                            nec dui. Aenean
-                            aliquam varius ipsum, non ultricies tellus sodales eu. Donec dignissim viverra
-                            nunc, ut aliquet
-                            magna posuere eget.
-                        </p>
-                    </label>
-                </div>
-                {{-- <div class="form-check">
-                    <input class="form-check-input form-check-input_fill" type="radio" name="checkout_payment_method"
-                        id="checkout_payment_method_3">
-                    <label class="form-check-label" for="checkout_payment_method_3">
-                        Cash on delivery
-                        <p class="option-detail">
-                            Phasellus sed volutpat orci. Fusce eget lore mauris vehicula elementum gravida nec dui. Aenean
-                            aliquam varius ipsum, non ultricies tellus sodales eu. Donec dignissim viverra nunc, ut aliquet
-                            magna posuere eget.
-                        </p>
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input form-check-input_fill" type="radio" name="checkout_payment_method"
-                        id="checkout_payment_method_4">
-                    <label class="form-check-label" for="checkout_payment_method_4">
-                        Paypal
-                        <p class="option-detail">
-                            Phasellus sed volutpat orci. Fusce eget lore mauris vehicula elementum gravida nec dui. Aenean
-                            aliquam varius ipsum, non ultricies tellus sodales eu. Donec dignissim viverra nunc, ut aliquet
-                            magna posuere eget.
-                        </p>
-                    </label>
-                </div> --}}
-                <div class="policy-text">
-                    Your personal data will be used to process your order, support your experience
-                    throughout this
-                    website, and for other purposes described in our <a href="terms.html" target="_blank">privacy
-                        policy</a>.
-                </div>
-            </div>
-            <form action="{{ route('front.payment_confirm') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="form-group">
-                    <label for="proof">Upload Proof of Payment</label>
-                    <input type="file" name="proof" class="form-control" required>
-                </div>
-
-                {{-- <div class="form-group">
-                    <label for="promo_code">Promo Code (Optional)</label>
-                    <input type="text" name="promo_code" class="form-control"
-                        placeholder="Enter promo code if available">
-                </div> --}}
-
-                <button type="submit" class="btn btn-success">Confirm Payment</button>
-            </form>
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            </div>
-            <div class="checkout__totals-wrapper">
-                <div class="sticky-content">
-                    <div class="checkout__totals">
-                        <h3>Your Order</h3>
-                        <table class="checkout-cart-items">
-                            <thead>
-                                <tr>
-                                    <th>PRODUCT</th>
-                                    <th align="right">SUBTOTAL</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        {{ $product->name }}
-                                    </td>
-                                    <td align="right">
-                                        Rp {{ number_format($orderData['sub_total_amount'], 0, ',', '.') }}
-                                    </td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                        <table class="checkout-totals">
-                            <tbody>
-                                <tr>
-                                    <th>SUBTOTAL</th>
-                                    <td align="right">Rp
-                                        {{ number_format($orderData['sub_total_amount'], 0, ',', '.') }}</td>
-                                </tr>
-                                <tr>
-                                    <th>DICS</th>
-                                    <td align="right">Rp 0</td>
-                                </tr>
-                                <tr>
-                                    <th>TAX</th>
-                                    <td align="right">Rp {{ number_format($orderData['total_tax'], 0, ',', '.') }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>TOTAL</th>
-                                    <td align="right">Rp
-                                        {{ number_format($orderData['grand_total_amount'], 0, ',', '.') }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+            <div class="shopping-cart__totals-wrapper">
+                <div class="row">
+                    <div class="col-8 text-center mt-4">
+                        <h2>QRIS</h2>
+                        <img src="https://gkjw.or.id/wp-content/uploads/2023/05/QRIS-Dummy.jpg" alt=""
+                            style="width: 600px; height: 600px;">
+                        <h3 class="mt-3">A.N Rinaldi Firdaus</h3>
                     </div>
 
+                    <div class="col-4 mt-5">
+                        <div class="mt-5">
+                            <form action="{{ route('front.payment_confirm') }}" method="post"
+                                enctype="multipart/form-data">
+                                @csrf
+
+
+
+                                <div class="shopping-cart__totals ms-3 mt-5">
+                                    <h3>Grand Totals</h3>
+                                    <table class="cart-totals">
+                                        <tbody>
+                                            <tr>
+                                                <th>Subtotal</th>
+                                                <td>Rp {{ number_format($orderData['sub_total_amount'], 0, ',', '.') }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Disc</th>
+                                                <td>Rp
+                                                    {{-- {{ number_format($orderData['total_disc'], 0, ',', '.') ?? 0 }} --}} 0
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Tax</th>
+                                                <td>Rp {{ number_format($orderData['total_tax'], 0, ',', '.') }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Total</th>
+                                                <td>Rp {{ number_format($orderData['grand_total_amount'], 0, ',', '.') }}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {{-- <div class="mb-3">
+                                    <label for="" class="form-label">Kode Promo</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        name=""
+                                        id=""
+                                        placeholder="Masukan Kode Promo"
+                                    />
+                                </div> --}}
+
+                                <div class="mb-3 mt-5">
+                                    <label for="proof" class="form-label">Bukti Pembayaran</label>
+                                    <input type="file" class="form-control" name="proof" id="proof"
+                                        placeholder="Masukan Bukti Pembayaran" />
+                                </div>
+                                <input type="hidden" name="sub_total_amount" value="{{ $orderData['sub_total_amount'] }}">
+                                <input type="hidden" name="grand_total_amount" value="{{ $orderData['grand_total_amount'] }}">
+                                <div class="mobile_fixed-btn_wrapper">
+                                    <div class="button-wrapper container">
+                                        <button type="submit"
+                                            class="btn btn-primary btn-checkout">PROCEED TO
+                                            PAYMENT</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <h2 class="text-center mt-1">Transfer Bank</h2>
+                <div class="col-3 text-center">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUA2kqUQIf_RTz3evvjkgAjnKC_piTxR0RUg&sa "
+                        alt="" style="width: 266px;height: 190px; object-fit: cover;">
+                    <h3>8723450982</h3>
+                    <p>A.N Rizki FEbian</p>
+                </div>
+                <div class="col-3 text-center">
+                    <img src="https://buatlogoonline.com/wp-content/uploads/2022/10/Logo-BCA-PNG.png" alt=""
+                        style="width: 266px;height: 190px; object-fit: cover;">
+                    <h3>8723450982</h3>
+                    <p>A.N Rizki FEbian</p>
+                </div>
+                <div class="col-3 text-center">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShne_g0DhrXLV1yNO6k48XQuzfkn6QNtQcOg&s"
+                        alt="" style="width: 266px;height: 190px; object-fit: cover;">
+                    <h3>8723450982</h3>
+                    <p>A.N Rizki FEbian</p>
+                </div>
+                <div class="col-3 text-center">
+                    <img src="https://images.seeklogo.com/logo-png/40/1/bank-syariah-indonesia-logo-png_seeklogo-400980.png"
+                        alt="" style="width: 266px;height: 190px; object-fit: cover;">
+                    <h3>8723450982</h3>
+                    <p>A.N Rizki FEbian</p>
                 </div>
             </div>
         </section>
     </main>
+
 @endsection

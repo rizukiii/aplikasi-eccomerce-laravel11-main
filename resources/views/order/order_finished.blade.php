@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <main class="pt-90">
+    <main>
         <div class="mb-4 pb-4"></div>
         <section class="shop-checkout container">
             <h2 class="page-title">Order Received</h2>
@@ -32,19 +32,37 @@
                 <div class="order-info">
                     <div class="order-info__item">
                         <label>Order Number</label>
-                        <span>13119</span>
+                        <span>{{ $productTransaction->booking_trx_id }}</span>
                     </div>
                     <div class="order-info__item">
                         <label>Date</label>
-                        <span>27/10/2023</span>
+                        <span>{{ $productTransaction->created_at->format('d/m/Y') }}</span>
                     </div>
                     <div class="order-info__item">
                         <label>Total</label>
-                        <span>$81.40</span>
+                        <span>Rp {{ number_format($productTransaction->grand_total_amount, 0, ',', '.') }}</span>
                     </div>
                     <div class="order-info__item">
-                        <label>Paymetn Method</label>
-                        <span>Direct Bank Transfer</span>
+                        <label>Name</label>
+                        <span>{{ $productTransaction->name }}</span>
+                    </div>
+                </div>
+                <div class="order-info">
+                    <div class="order-info__item">
+                        <label>Phone</label>
+                        <span>{{ $productTransaction->phone }}</span>
+                    </div>
+                    <div class="order-info__item">
+                        <label>Email</label>
+                        <span>{{ $productTransaction->email }}</span>
+                    </div>
+                    <div class="order-info__item">
+                        <label>City</label>
+                        <span>{{ $productTransaction->city }}</span>
+                    </div>
+                    <div class="order-info__item">
+                        <label>Post Code</label>
+                        <span>{{ $productTransaction->post_code }}</span>
                     </div>
                 </div>
                 <div class="checkout__totals-wrapper">
@@ -60,18 +78,10 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        Zessi Dresses x 2
+                                        {{ $productTransaction->product->name }} x {{ $productTransaction->quantity }}
                                     </td>
                                     <td>
-                                        $32.50
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Kirby T-Shirt
-                                    </td>
-                                    <td>
-                                        $29.90
+                                        Rp {{ number_format($productTransaction->product->price, 0, ',', '.') }}
                                     </td>
                                 </tr>
                             </tbody>
@@ -80,22 +90,28 @@
                             <tbody>
                                 <tr>
                                     <th>SUBTOTAL</th>
-                                    <td>$62.40</td>
+                                    <td>Rp {{ number_format($productTransaction->sub_total_amount, 0, ',', '.') }}</td>
                                 </tr>
-                                <tr>
+                                {{-- <tr>
                                     <th>SHIPPING</th>
                                     <td>Free shipping</td>
-                                </tr>
+                                </tr> --}}
                                 <tr>
-                                    <th>VAT</th>
-                                    <td>$19</td>
+                                    <th>DISC</th>
+                                    <td>Rp {{ number_format($productTransaction->discount_amount, 0, ',', '.') }}</td>
                                 </tr>
                                 <tr>
                                     <th>TOTAL</th>
-                                    <td>$81.40</td>
+                                    <td>Rp {{ number_format($productTransaction->grand_total_amount, 0, ',', '.') }}</td>
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="mobile_fixed-btn_wrapper text-center">
+                        <div class="button-wrapper container">
+                            <a href="{{ route('front.index') }}"
+                                class="btn btn-primary btn-checkout">BACK TO HOME</a>
+                        </div>
                     </div>
                 </div>
             </div>

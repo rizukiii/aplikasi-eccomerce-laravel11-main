@@ -5,6 +5,7 @@ var $ = jQuery.noConflict();
 let UomoSections = {};
 let UomoElements = {};
 
+// Selectors untuk element terkait
 let UomoSelectors = {
     pageBackDropActiveClass: 'page-overlay_visible',
     quantityControl: '.qty-control',
@@ -13,7 +14,7 @@ let UomoSelectors = {
     scrollWidth: window.innerWidth - document.body.clientWidth + 'px',
     jsContentVisible: '.js-content_visible',
     starRatingControl: '.star-rating .star-rating__star-icon',
-}
+};
 
 // Utility functions
 let UomoHelpers = {

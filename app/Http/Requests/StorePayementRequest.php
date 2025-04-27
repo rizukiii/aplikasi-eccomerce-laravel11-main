@@ -22,7 +22,9 @@ class StorePayementRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'proof' => ['required', 'image', 'mimes:png,jpg,jpeg']
+            'proof' => ['required', 'image', 'mimes:png,jpg,jpeg'],
+            'sub_total_amount' => ['required', 'numeric',],
+            'grand_total_amount' => ['required', 'numeric',],
         ];
     }
 }

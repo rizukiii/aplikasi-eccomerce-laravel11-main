@@ -20,6 +20,5 @@ Route::get('/order/payment',[OrderControllers::class, 'payment'])->name('front.p
 Route::post('/order/payment/confirm',[OrderControllers::class, 'paymentConfirm'])->name('front.payment_confirm');
 
 
-Route::get('/order/finished',[OrderControllers::class, 'orderFinished'])->name('front.order_finished'); // 'front.details ubah jadi front_order.details karena bentrok dengan line 9
-
+Route::get('/order/finished/{id}',[OrderControllers::class, 'orderFinished'])->name('front.order_finished'); // 'front.details ubah jadi front_order.details karena bentrok dengan line 9
 
