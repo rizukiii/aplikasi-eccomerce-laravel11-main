@@ -45,7 +45,7 @@
                                             <tr>
                                                 <th>Disc</th>
                                                 <td>Rp
-                                                    {{-- {{ number_format($orderData['total_disc'], 0, ',', '.') ?? 0 }} --}} 0
+                                                    {{ number_format($orderData['discount_amount'], 0, ',', '.') }}
                                                 </td>
                                             </tr>
                                             <tr>

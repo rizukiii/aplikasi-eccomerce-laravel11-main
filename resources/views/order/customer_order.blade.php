@@ -114,7 +114,7 @@
                                         </tr>
                                         <tr>
                                             <th>DICS</th>
-                                            <td align="right">Rp 0</td>
+                                            <td align="right">Rp {{ number_format($orderData['discount_amount'], 0, ',', '.') }}</td>
                                         </tr>
                                         <tr>
                                             <th>TAX</th>

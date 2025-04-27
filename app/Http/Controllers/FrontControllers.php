@@ -19,6 +19,7 @@ class FrontControllers extends Controller
 
     public function index()
     {
+        // dd(session()->all());
         $data = $this->frontService->getFrontPage();
 
         return view('front.index', $data);

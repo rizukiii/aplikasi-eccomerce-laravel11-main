@@ -31,7 +31,7 @@
                 </div>
             </div> --}}
 
-            <a href="#" class="btn-link default-underline text-uppercase fw-medium mt-3">{{ __('front.order_now') }}</a>
+            <a href="{{ route('front.index') }}#all-product" class="btn-link default-underline text-uppercase fw-medium mt-3">{{ __('front.order_now') }}</a>
         </div>
         <div class="col-md-6 col-lg-8 col-xl-80per">
             <div class="position-relative">

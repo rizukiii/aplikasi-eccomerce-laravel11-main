@@ -34,6 +34,7 @@ class OrderControllers extends Controller
 
     public function booking()
     {
+        // dd(session()->all());
         $data = $this->orderService->getOrderDetails();
 
         // Debug untuk memastikan bentuknya
@@ -41,8 +42,61 @@ class OrderControllers extends Controller
         return view('order.order', $data);
     }
 
+    public function updateCart(Request $request)
+    {
+        // Ambil produk berdasarkan ID
+        $product = Products::findOrFail($request->product_id);
+
+        // Validasi input form
+        $validated = $request->validate([
+            'coupon_code' => 'nullable|string|exists:promo_codes,code',
+            'size' => 'required|string|exists:product_sizes,id',
+            'quantity' => 'required|integer|min:1|max:' . $product->stock,
+            'sub_total_amount' => 'required|numeric',
+        ]);
+
+        // Update data size dan quantity ke session
+        // Cari data size berdasarkan ID
+        $productSize = \App\Models\ProductSizes::findOrFail($validated['size']); // <-- cari size berdasarkan ID
+
+        $orderData['product_size'] = $productSize->size; // Ambil nama size-nya
+        $orderData['size_id'] = $productSize->id; // (optional) kalau mau simpan ID juga
+
+        $orderData['quantity'] = $validated['quantity'];
+
+        // Jika user input coupon code, proses promo code
+        if (!empty($validated['coupon_code'])) {
+            $promoResult = $this->orderService->applyPromoCode($validated['coupon_code'], $validated['sub_total_amount']);
+
+            // Cek error dari promo
+            if (isset($promoResult['error'])) {
+                return back()->withErrors(['coupon_code' => $promoResult['error']]);
+            }
+
+            // Update hasil promo ke orderData
+            $orderData['discount_amount'] = $promoResult['discount_amount'];
+            $orderData['grand_total_amount'] = $promoResult['grand_total_amount'];
+            $orderData['promo_code'] = $validated['coupon_code']; // Tetap simpan code
+
+            // Cari ID dari promo code
+            $promo = \App\Models\PromoCodes::where('code', $validated['coupon_code'])->first();
+            if ($promo) {
+                $orderData['promo_codes_id'] = $promo->id;
+            }
+        }
+
+        // Update data ke session
+        $this->orderService->updateCustomerData($orderData);
+
+        // Redirect ke halaman booking/cart
+        return redirect()->route('front.booking')->with('success', 'Keranjang berhasil diperbarui!');
+    }
+
+
+
     public function customerData()
     {
+        // dd(session()->all());
         $data = $this->orderService->getOrderDetails();
         return view('order.customer_order', $data);
     }
@@ -86,6 +140,7 @@ class OrderControllers extends Controller
 
     public function orderFinished($id)
     {
+        session()->forget('orderData');
         $productTransaction = ProductTransactions::findOrFail($id);
         return view('order.order_finished', compact('productTransaction'));
     }

@@ -90,8 +90,8 @@
 
                             <!-- SIZE SELECT -->
                             <div class="qty-control position-relative mb-2">
-                                <select name="size_id" required>
-                                    <option value="">-- Pilih Size --</option>
+                                <select name="size_id" required class="form-control">
+                                    <option value="">Pilih Size</option>
                                     @foreach ($product->sizes as $size)
                                         <option value="{{ $size->id }}">{{ $size->size }}</option>
                                     @endforeach
@@ -99,11 +99,10 @@
                             </div>
 
                             <!-- QUANTITY CONTROL -->
-                            <div class="qty-control position-relative" data-product-id="{{ $product->id }}">
-                                <input type="number" name="quantity" value="1" min="1" max="{{ $product->stok }}"
-                                    class="qty-control__number text-center" readonly>
-                                <div class="qty-control__reduce" style="cursor:pointer;">-</div>
-                                <div class="qty-control__increase" style="cursor:pointer;">+</div>
+                            <div class="qty-control" data-product-id="{{ $product->id }}">
+                                <input type="number" name="quantity" value="1" min="1" max="{{ $product->stock }}"
+                                    class="qty-control__number text-center">
+                                    <small>Tersedia: {{ $product->stock }}</small>
                             </div>
 
                             <!-- SUBMIT -->

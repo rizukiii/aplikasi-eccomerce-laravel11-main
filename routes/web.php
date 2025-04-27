@@ -10,6 +10,7 @@ Route::get('/details/{slug}',[FrontControllers::class, 'details'])->name('front.
 
 Route::post('/order/begin/{slug}',[OrderControllers::class, 'saveOrder'])->name('front.save_order');
 Route::get('/order/booking',[OrderControllers::class, 'booking'])->name('front.booking'); // cart
+Route::post('/order/updatecart',[OrderControllers::class, 'updateCart'])->name('front.updatecart'); // cart
 // untuk menambah produk ke cart, posisi user masi disini bisa menambah/mengubah produknya, dan ada tombol checkout jika di klik maka semua data di local storage akan dikirim ke route '/order/booking/customer-data'
 
 Route::get('/order/booking/customer-data',[OrderControllers::class, 'customerData'])->name('front.customer_data');

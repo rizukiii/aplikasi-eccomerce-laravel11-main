@@ -41,28 +41,59 @@ class OrderService
         $this->orderRepository->saveToSession($orderData);
     }
 
-
     public function getOrderDetails()
     {
         $orderData = $this->orderRepository->getOrderDataFromSession();
 
+        // Cek apakah ada produk yang diambil di session
         $product = $this->productRepository->find($orderData['products_id']);
 
+        // Tentukan jumlah produk (default 1 jika tidak ada)
         $quantity = isset($orderData['quantity']) ? $orderData['quantity'] : 1;
 
+        // Hitung subtotal berdasarkan harga produk dan jumlah
         $subtotalAmount = $product->price * $quantity;
 
+        // Cek apakah ada diskon yang diterapkan dari kode promo
+        $discountAmount = isset($orderData['discount_amount']) ? $orderData['discount_amount'] : 0;
+
+        // Hitung pajak (misalnya 11% dari subtotal setelah diskon)
         $taxRate = 0.11;
-        $totalTax = $subtotalAmount * $taxRate;
+        $totalTax = ($subtotalAmount - $discountAmount) * $taxRate; // Pajak dihitung setelah diskon
 
-        $grandtotalAmount = $subtotalAmount + $totalTax;
+        // Hitung grand total (subtotal - diskon + pajak)
+        $grandtotalAmount = ($subtotalAmount - $discountAmount) + $totalTax;
 
+        // Update orderData dengan informasi harga baru
         $orderData['sub_total_amount'] = $subtotalAmount;
         $orderData['total_tax'] = $totalTax;
         $orderData['grand_total_amount'] = $grandtotalAmount;
 
+        // Return data untuk digunakan di view
         return compact('orderData', 'product');
     }
+
+    //     public function getOrderDetails()
+//     {
+//         $orderData = $this->orderRepository->getOrderDataFromSession();
+// // dd($orderData);
+//         $product = $this->productRepository->find($orderData['products_id']);
+
+    //         $quantity = isset($orderData['quantity']) ? $orderData['quantity'] : 1;
+
+    //         $subtotalAmount = $product->price * $quantity;
+
+    //         $taxRate = 0.11;
+//         $totalTax = $subtotalAmount * $taxRate;
+
+    //         $grandtotalAmount = $subtotalAmount + $totalTax;
+
+    //         $orderData['sub_total_amount'] = $subtotalAmount;
+//         $orderData['total_tax'] = $totalTax;
+//         $orderData['grand_total_amount'] = $grandtotalAmount;
+
+    //         return compact('orderData', 'product');
+//     }
 
     public function applyPromoCode(string $code, int $subtotalAmount)
     {
@@ -73,9 +104,9 @@ class OrderService
             $grandtotalAmount = $subtotalAmount - $discount;
             $promoCodeId = $promo->id;
             return [
-                'discount' => $discount,
-                'grandTotalAmount' => $grandtotalAmount,
-                'promoCodeId' => $promoCodeId
+                'discount_amount' => $discount,
+                'grand_total_amount' => $grandtotalAmount,
+                'promo_codes_id' => $promoCodeId
             ];
         }
         return ['error' => 'Kode promo tidak tersedia'];
