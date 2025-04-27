@@ -1,6 +1,6 @@
 <div class="mb-3 mb-xl-5 pt-1 pb-4"></div>
 
-<section class="category-carousel container">
+<section class="category-carousel container" id="brands">
     <h2 class="section-title text-center mb-3 pb-xl-2 mb-xl-4">{{ __('front.brands') }}</h2>
 
     <div class="position-relative">

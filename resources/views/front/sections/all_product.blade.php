@@ -1,10 +1,10 @@
 <div class="mb-3 mb-xl-5 pt-1 pb-4"></div>
 
-            <section class="products-grid container">
+            <section class="products-grid container" id="all-product">
                 <h2 class="section-title text-center mb-3 pb-xl-3 mb-xl-4">{{ __('front.featured_products') }}</h2>
 
                 <div class="row">
-                    @foreach ($products as $product)
+                    @foreach ($products->take(8) as $product)
                     <div class="col-6 col-md-4 col-lg-3">
                       <div class="product-card product-card_style3 mb-3 mb-md-4 mb-xxl-5">
                         <div class="pc__img-wrapper">

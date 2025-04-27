@@ -5,93 +5,44 @@
 @section('content')
     <main class="pt-90">
         <section class="products-carousel container mt-5">
-            <h2 class="h3 text-uppercase mb-4 pb-xl-2 mb-xl-4">Kategori<strong></strong></h2>
+            <h2 class="h3 text-uppercase mb-4 pb-xl-2 mb-xl-4">Kategori <strong>{{ $category->name }}</strong></h2>
 
-            <div id="related_products" class="position-relative">
-                <div class="swiper-container js-swiper-slider"
-                    data-settings='{
-    "autoplay": false,
-    "slidesPerView": 4,
-    "slidesPerGroup": 4,
-    "effect": "none",
-    "loop": true,
-    "pagination": {
-      "el": "#related_products .products-pagination",
-      "type": "bullets",
-      "clickable": true
-    },
-    "navigation": {
-      "nextEl": "#related_products .products-carousel__next",
-      "prevEl": "#related_products .products-carousel__prev"
-    },
-    "breakpoints": {
-      "320": {
-        "slidesPerView": 2,
-        "slidesPerGroup": 2,
-        "spaceBetween": 14
-      },
-      "768": {
-        "slidesPerView": 3,
-        "slidesPerGroup": 3,
-        "spaceBetween": 24
-      },
-      "992": {
-        "slidesPerView": 4,
-        "slidesPerGroup": 4,
-        "spaceBetween": 30
-      }
-    }
-  }'>
-                    <div class="swiper-wrapper">
-                        @foreach ($cat->product as $product)
-                            <div class="swiper-slide product-card">
-                                <div class="pc__img-wrapper">
-                                    <img loading="lazy" src="{{ Storage::url($product->thumbnail) }}" width="258"
-                                        height="313" alt="{{ $product->name }}" class="pc__img">
-                                </div>
+            <div class="row">
+                @foreach ($category->product as $product)
+                <div class="col-6 col-md-4 col-lg-3">
+                  <div class="product-card product-card_style3 mb-3 mb-md-4 mb-xxl-5">
+                    <div class="pc__img-wrapper">
+                      <a href="{{ route('front.details', $product->slug) }}">
+                        <img loading="lazy" src="{{ Storage::url($product->thumbnail) }}" width="330" height="400"
+                          alt="Cropped Faux leather Jacket" class="pc__img">
+                      </a>
+                    </div>
 
-                                <div class="pc__info position-relative">
-                                    <p class="pc__category">{{ $product->categories->name }}</p>
-                                    <h6 class="pc__title"><a
-                                            href="{{ route('front.details', $product->slug) }}">{{ $product->name }}</a>
-                                    </h6>
-                                    <div class="product-card__price d-flex">
-                                        <span
-                                            class="money price">{{ __('front.format_price') }}{{ number_format($product->price, 0, ',', '.') }}</span>
-                                    </div>
+                    <div class="pc__info position-relative">
+                      <h6 class="pc__title"><a href="{{ route('front.details', $product->slug) }}">{{ $product->name }}</a></h6>
+                      <div class="product-card__price d-flex align-items-center">
+                        <span class="money price text-secondary">{{ __('front.format_price') }}{{ number_format($product->price, 0, ',', '.') }}{{ __('front.format_price_decimal') }}</span>
+                      </div>
 
-                                    <button
-                                        class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist"
-                                        title="Add To Wishlist">
-                                        <svg width="16" height="16" viewBox="0 0 20 20" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <use href="#icon_heart" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        @endforeach
+                      <div
+                        class="anim_appear-bottom position-absolute bottom-0 start-0 d-none d-sm-flex align-items-center bg-body">
+                        <button class="btn-link btn-link_lg me-4 text-uppercase fw-medium js-add-cart js-open-aside"
+                          data-aside="cartDrawer" title="Add To Cart">{{ __('front.add_to_cart') }}</button>
+                        <button class="btn-link btn-link_lg me-4 text-uppercase fw-medium js-quick-view"
+                          data-bs-toggle="modal" data-bs-target="#quickView" title="Quick view">
+                          <span class="d-none d-xxl-block">{{ __('front.quick_view') }}</span>
+                          <span class="d-block d-xxl-none"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <use href="#icon_view" />
+                            </svg></span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-
-                    </div><!-- /.swiper-wrapper -->
-                </div><!-- /.swiper-container js-swiper-slider -->
-
-                <div
-                    class="products-carousel__prev position-absolute top-50 d-flex align-items-center justify-content-center">
-                    <svg width="25" height="25" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_prev_md" />
-                    </svg>
-                </div><!-- /.products-carousel__prev -->
-                <div
-                    class="products-carousel__next position-absolute top-50 d-flex align-items-center justify-content-center">
-                    <svg width="25" height="25" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_next_md" />
-                    </svg>
-                </div><!-- /.products-carousel__next -->
-
-                <div class="products-pagination mt-4 mb-5 d-flex align-items-center justify-content-center"></div>
-                <!-- /.products-pagination -->
-            </div><!-- /.position-relative -->
+                @endforeach
+            </div><!-- /.row -->
 
         </section><!-- /.products-carousel container -->
     </main>

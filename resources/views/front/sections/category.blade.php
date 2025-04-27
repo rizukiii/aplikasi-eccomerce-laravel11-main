@@ -46,8 +46,8 @@
                         <div class="swiper-wrapper">
                             @foreach ($categories as $category)
                                 <div class="swiper-slide">
-                                    <img loading="lazy" class="w-100 h-auto mb-3" src="{{ Storage::url($category->icon) }}"
-                                        width="124" height="124" alt="" />
+                                    <img loading="lazy" class="mb-3" src="{{ Storage::url($category->icon) }}"
+                                        width="124" height="124" alt="{{ $category->name }}" />
                                     <div class="text-center">
                                         <a href="{{ route('front.category', $category->slug) }}"
                                             class="menu-link fw-medium">{{ $category->name }}<br /></a>

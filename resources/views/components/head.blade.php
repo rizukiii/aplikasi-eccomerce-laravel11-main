@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+
 @push('head')
 
     <head>
@@ -19,3 +22,5 @@
             crossorigin="anonymous" referrerpolicy="no-referrer">
     </head>
 @endpush
+
+<body class="gradient-bg">

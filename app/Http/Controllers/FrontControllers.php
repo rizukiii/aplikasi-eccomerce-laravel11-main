@@ -20,7 +20,7 @@ class FrontControllers extends Controller
     public function index()
     {
         $data = $this->frontService->getFrontPage();
-        // dd($data);
+
         return view('front.index', $data);
     }
 
@@ -28,13 +28,15 @@ class FrontControllers extends Controller
     {
         $product = Products::where('slug',$slug)->first();
         $allProduct = Products::with('categories')->get();
+
         return view('front.details', compact('product', 'allProduct'));
     }
 
     public function category($slug)
     {
-        $cat = Categories::where('slug', $slug)->with('product.photos')->first();
-        return view('front.category', compact('cat'));
+        $category = Categories::where('slug', $slug)->with('product.photos')->first();
+
+        return view('front.category', compact('category'));
 
     }
 }

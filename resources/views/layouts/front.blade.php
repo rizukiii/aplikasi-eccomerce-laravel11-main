@@ -1,22 +1,15 @@
-<!DOCTYPE html>
-<html dir="ltr" lang="en-US">
-
-@include('partials.head')
+<x-head />
 @stack('head')
 
-<body class="gradient-bg">
-    @include('partials.svg')
+<x-svg />
 
-    @include('partials.style')
+<x-style />
 
-    @include('partials.header')
+<x-header />
 
-    @yield('content')
+@yield('content')
 
-@include('partials.footer')
+<x-footer />
 
-@include('partials.script')
+<x-script />
 @stack('script')
-</body>
-
-</html>

@@ -8,13 +8,12 @@
         </a>
 
         <div class="logo">
-            <a href="index.html">
-                <img src="{{ asset('Website') }}/assets/images/logo.png" alt="Uomo"
-                    class="logo__image d-block" />
+            <a href="{{ route('front.index') }}">
+                <img src="{{ asset('Website') }}/assets/images/logo.png" alt="Uomo" class="logo__image d-block" />
             </a>
         </div>
 
-        <a href="#" class="header-tools__item header-tools__cart js-open-aside" data-aside="cartDrawer">
+        <a href="{{ route('front.booking') }}" class="header-tools__item header-tools__cart js-open-aside" data-aside="cartDrawer">
             <svg class="d-block" width="20" height="20" viewBox="0 0 20 20" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <use href="#icon_cart" />
@@ -25,7 +24,7 @@
 
     <nav
         class="header-mobile__navigation navigation d-flex flex-column w-100 position-absolute top-100 bg-body overflow-auto">
-        <div class="container">
+        {{-- <div class="container">
             <form action="#" method="GET" class="search-field position-relative mt-4 mb-3">
                 <div class="position-relative">
                     <input class="search-field__input w-100 border rounded-1" type="text" name="search-keyword"
@@ -43,26 +42,26 @@
                     <div class="search-result"></div>
                 </div>
             </form>
-        </div>
+        </div> --}}
 
-        <div class="container">
+        <div class="container mt-5">
             <div class="overflow-hidden">
                 <ul class="navigation__list list-unstyled position-relative">
                     <li class="navigation__item">
-                        <a href="index.html" class="navigation__link">Home</a>
+                        <a href="{{ route('front.index') }}" class="navigation__link">Home</a>
                     </li>
                     <li class="navigation__item">
-                        <a href="shop.html" class="navigation__link">Shop</a>
+                        <a href="{{ route('front.index') }}#popular" class="navigation__link">Shop</a>
                     </li>
                     <li class="navigation__item">
-                        <a href="cart.html" class="navigation__link">Cart</a>
+                        <a href="{{ route('front.booking') }}" class="navigation__link">Cart</a>
                     </li>
-                    <li class="navigation__item">
+                    {{-- <li class="navigation__item">
                         <a href="about.html" class="navigation__link">About</a>
                     </li>
                     <li class="navigation__item">
                         <a href="contact.html" class="navigation__link">Contact</a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </div>
@@ -97,8 +96,8 @@
                 </li>
                 <li>
                     <a href="#" class="footer__social-link d-block">
-                        <svg class="svg-icon svg-icon_instagram" width="14" height="13"
-                            viewBox="0 0 14 13" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="svg-icon svg-icon_instagram" width="14" height="13" viewBox="0 0 14 13"
+                            xmlns="http://www.w3.org/2000/svg">
                             <use href="#icon_instagram" />
                         </svg>
                     </a>
@@ -114,8 +113,8 @@
                 </li>
                 <li>
                     <a href="#" class="footer__social-link d-block">
-                        <svg class="svg-icon svg-icon_pinterest" width="14" height="15"
-                            viewBox="0 0 14 15" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="svg-icon svg-icon_pinterest" width="14" height="15" viewBox="0 0 14 15"
+                            xmlns="http://www.w3.org/2000/svg">
                             <use href="#icon_pinterest" />
                         </svg>
                     </a>
@@ -140,9 +139,27 @@
                     <li class="navigation__item">
                         <a href="{{ route('front.index') }}" class="navigation__link">{{ __('front.home') }}</a>
                     </li>
+
+                    <li class="navigation__item dropdown">
+                        <a href="#" class="navigation__link dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Categories
+                        </a>
+                        <ul class="dropdown-menu">
+                            @foreach ($categories as $category)
+                                <li>
+                                    <a href="{{ route('front.category', $category->slug) }}" class="dropdown-item">
+                                        {{ $category->name }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </li>
+
                     <li class="navigation__item">
                         <a href="{{ route('front.booking') }}" class="navigation__link">Cart</a>
                     </li>
+
                     {{-- <li class="navigation__item">
                         <a href="about.html" class="navigation__link">About</a>
                     </li>
@@ -152,12 +169,13 @@
                 </ul>
             </nav>
 
+
             <div class="header-tools d-flex align-items-center">
                 <div class="header-tools__item hover-container">
                     <div class="js-hover__open position-relative">
                         <a class="js-search-popup search-field__actor" href="#">
-                            <svg class="d-block" width="20" height="20" viewBox="0 0 20 20"
-                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg class="d-block" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
                                 <use href="#icon_search" />
                             </svg>
                             <i class="btn-icon btn-close-lg"></i>
@@ -166,7 +184,7 @@
 
                     <div class="search-popup js-hidden-content">
                         <form action="#" method="GET" class="search-field container">
-                            <p class="text-uppercase text-secondary fw-medium mb-4">What are you looking for?</p>
+                            {{-- <p class="text-uppercase text-secondary fw-medium mb-4">What are you looking for?</p> --}}
 
                             <div class="search-popup__results">
                                 <div class="sub-menu search-suggestion">
@@ -175,7 +193,7 @@
                                         <li class="sub-menu__item"><a href="{{ route('front.index') }}"
                                                 class="menu-link menu-link_us-s">Beranda</a>
                                         </li>
-                                        <li class="sub-menu__item"><a href="shop3.html"
+                                        <li class="sub-menu__item"><a href="{{ route('front.index') }}#popular"
                                                 class="menu-link menu-link_us-s">Order</a>
                                         </li>
                                     </ul>

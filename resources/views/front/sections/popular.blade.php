@@ -1,6 +1,6 @@
 <div class="mb-3 mb-xl-5 pt-1 pb-4"></div>
 
-<section class="hot-deals container">
+<section class="hot-deals container" id="popular">
     <h2 class="section-title text-center mb-3 pb-xl-3 mb-xl-4">{{ __('front.attractive_offer') }}</h2>
     <div class="row">
         <div

@@ -39,8 +39,8 @@
                         <span>{{ $productTransaction->created_at->format('d/m/Y') }}</span>
                     </div>
                     <div class="order-info__item">
-                        <label>Total</label>
-                        <span>Rp {{ number_format($productTransaction->grand_total_amount, 0, ',', '.') }}</span>
+                        <label>Post Code</label>
+                        <span>{{ $productTransaction->post_code }}</span>
                     </div>
                     <div class="order-info__item">
                         <label>Name</label>
@@ -61,8 +61,8 @@
                         <span>{{ $productTransaction->city }}</span>
                     </div>
                     <div class="order-info__item">
-                        <label>Post Code</label>
-                        <span>{{ $productTransaction->post_code }}</span>
+                        <label>Address</label>
+                        <span>{{ $productTransaction->address }}</span>
                     </div>
                 </div>
                 <div class="checkout__totals-wrapper">
