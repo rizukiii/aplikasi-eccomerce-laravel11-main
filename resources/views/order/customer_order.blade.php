@@ -114,7 +114,7 @@
                                         </tr>
                                         <tr>
                                             <th>{{ __('customer_order.discount') }}</th>
-                                            <td align="right">{{ __('front.format_price') }} {{ number_format($orderData['discount_amount'], 0, ',', '.') }}</td>
+                                            <td align="right">{{ __('front.format_price') }} {{ number_format($orderData['discount_amount'] ?? 0, 0, ',', '.') }}</td>
                                         </tr>
                                         <tr>
                                             <th>{{ __('customer_order.tax') }}</th>
