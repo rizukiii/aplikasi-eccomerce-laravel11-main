@@ -1,6 +1,6 @@
 @extends('layouts.front')
 
-@section('title', 'Detail Produk')
+@section('title', __('front.product_details'))
 
 @section('content')
     <main class="pt-90">
@@ -12,19 +12,21 @@
                         <div class="product-single__image">
                             <div class="swiper-container">
                                 <div class="swiper-wrapper">
-                                    @foreach ($product->photos as $photo)
+                                    @forelse ($product->photos as $photo)
                                         <div class="swiper-slide product-single__image-item">
                                             <img loading="lazy" class="h-auto" src="{{ Storage::url($photo->photo) }}"
                                                 width="674" height="674" alt="{{ $product->name }}" />
                                             <a data-fancybox="gallery" href="{{ Storage::url($photo->photo) }}"
-                                                data-bs-toggle="tooltip" data-bs-placement="left" title="Zoom">
+                                                data-bs-toggle="tooltip" data-bs-placement="left" title="{{ __('front.zoom') }}">
                                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <use href="#icon_zoom" />
                                                 </svg>
                                             </a>
                                         </div>
-                                    @endforeach
+                                    @empty
+                                        <p>{{ __('front.no_photos_available') }}</p>
+                                    @endforelse
                                 </div>
                                 <div class="swiper-button-prev"><svg width="7" height="11" viewBox="0 0 7 11"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -39,28 +41,28 @@
                         <div class="product-single__thumbnail">
                             <div class="swiper-container">
                                 <div class="swiper-wrapper">
-                                    @foreach ($product->photos as $photo)
+                                    @forelse ($product->photos as $photo)
                                         <div class="swiper-slide product-single__image-item">
                                             <img loading="lazy" class="h-auto" src="{{ Storage::url($photo->photo) }}"
                                                 width="104" height="104" alt="{{ $product->name }}" />
                                         </div>
-                                    @endforeach
+                                    @empty
+                                        <p>{{ __('front.no_photos_available') }}</p>
+                                    @endforelse
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="col-lg-5">
                     <div class="d-flex justify-content-between mb-4 pb-md-2">
                         <div class="breadcrumb mb-0 d-none d-md-block flex-grow-1">
-                            <a href="#" class="menu-link menu-link_us-s text-uppercase fw-medium">Home</a>
+                            <a href="#" class="menu-link menu-link_us-s text-uppercase fw-medium">{{ __('front.home') }}</a>
                             <span class="breadcrumb-separator menu-link fw-medium ps-1 pe-1">/</span>
-                            <a href="#" class="menu-link menu-link_us-s text-uppercase fw-medium">The Shop</a>
+                            <a href="#" class="menu-link menu-link_us-s text-uppercase fw-medium">{{ __('front.the_shop') }}</a>
                         </div><!-- /.breadcrumb -->
 
-                        <div
-                            class="product-single__prev-next d-flex align-items-center justify-content-between justify-content-md-end flex-grow-1">
+                        <div class="product-single__prev-next d-flex align-items-center justify-content-between justify-content-md-end flex-grow-1">
                         </div><!-- /.shop-acs -->
                     </div>
                     <h1 class="product-single__name">{{ $product->name }}</h1>
@@ -87,43 +89,33 @@
                     <form id="addtocart-form" method="POST" action="{{ route('front.save_order', $product->slug) }}">
                         @csrf
                         <div class="product-single__addtocart">
-
                             <!-- SIZE SELECT -->
                             <div class="qty-control position-relative mb-2">
                                 <select name="size_id" required class="form-control">
-                                    <option value="">Pilih Size</option>
-                                    @foreach ($product->sizes as $size)
-                                        <option value="{{ $size->id }}">{{ $size->size }}</option>
-                                    @endforeach
+                                    <option value="">{{ __('front.select_size') }}</option>
+                                    @forelse ($product->sizes as $size)
+                                    <option value="{{ $size->id }}">{{ $size->size }}</option>
+                                @empty
+                                    <option disabled>{{ __('front.no_sizes_available') }}</option>
+                                @endforelse
                                 </select>
                             </div>
 
                             <!-- QUANTITY CONTROL -->
                             <div class="qty-control" data-product-id="{{ $product->id }}">
-                                <input type="number" name="quantity" value="1" min="1" max="{{ $product->stock }}"
-                                    class="qty-control__number text-center">
-                                    <small>Tersedia: {{ $product->stock }}</small>
+                                <input type="number" name="quantity" value="1" min="1"
+                                    max="{{ $product->stock }}" class="qty-control__number text-center">
+                                <small>{{ __('front.available_stock') }}: {{ $product->stock }}</small>
                             </div>
 
                             <!-- SUBMIT -->
-                            <button type="submit" class="btn btn-primary btn-addtocart">Masukkan Keranjang</button>
+                            <button type="submit" class="btn btn-primary btn-addtocart">{{ __('front.add_to_cart') }}</button>
                         </div>
                     </form>
-                    <!-- Cart Drawer HTML (wajib ada) -->
-                    <div id="cartDrawer" class="aside cart-drawer" style="display: none;">
-                        <div class="aside-header">Your Cart</div>
-                        <div class="cart-drawer-items-list">
-                            <!-- Item cart akan ditampilkan di sini -->
-                        </div>
-                        <div class="cart-drawer-actions">
-                            <!-- Contoh: tombol Checkout -->
-                            <button class="btn btn-success">Checkout</button>
-                        </div>
-                    </div>
 
                     <div class="product-single__meta-info">
                         <div class="meta-item">
-                            <label>Size:</label>
+                            <label>{{ __('front.size') }}:</label>
                             @forelse($product->sizes as $size)
                                 {{ $size->size }}{{ !$loop->last ? ', ' : '' }}
                             @empty
@@ -132,117 +124,17 @@
                         </div>
 
                         <div class="meta-item">
-                            <label>Category:</label>
+                            <label>{{ __('front.category') }}:</label>
                             <span>{{ $product->categories->name ?? 'N/A' }}</span>
                         </div>
 
                         <div class="meta-item">
-                            <label>Brand:</label>
+                            <label>{{ __('front.brand') }}:</label>
                             <span>{{ $product->brands->name ?? 'N/A' }}</span>
                         </div>
-
                     </div>
                 </div>
             </div>
         </section>
-        <br>
-        <br>
-        <br>
-        {{-- <section class="products-carousel container">
-            <h2 class="h3 text-uppercase mb-4 pb-xl-2 mb-xl-4">Related <strong>Products</strong></h2>
-
-            <div id="related_products" class="position-relative">
-                <div class="swiper-container js-swiper-slider"
-                    data-settings='{
-            "autoplay": false,
-            "slidesPerView": 4,
-            "slidesPerGroup": 4,
-            "effect": "none",
-            "loop": true,
-            "pagination": {
-              "el": "#related_products .products-pagination",
-              "type": "bullets",
-              "clickable": true
-            },
-            "navigation": {
-              "nextEl": "#related_products .products-carousel__next",
-              "prevEl": "#related_products .products-carousel__prev"
-            },
-            "breakpoints": {
-              "320": {
-                "slidesPerView": 2,
-                "slidesPerGroup": 2,
-                "spaceBetween": 14
-              },
-              "768": {
-                "slidesPerView": 3,
-                "slidesPerGroup": 3,
-                "spaceBetween": 24
-              },
-              "992": {
-                "slidesPerView": 4,
-                "slidesPerGroup": 4,
-                "spaceBetween": 30
-              }
-            }
-          }'>
-                    <div class="swiper-wrapper">
-                        @foreach ($allProduct as $product)
-                            <div class="swiper-slide product-card">
-                                <div class="pc__img-wrapper">
-                                    @foreach ($product->photos->take(2) as $photo)
-                                        <img loading="lazy" src="{{ Storage::url($photo->photo) }}" width="258"
-                                            height="313" alt="{{ $product->name }}"
-                                            class="pc__img {{ $loop->last ? 'pc__img-second' : '' }}">
-                                    @endforeach
-                                    <button
-                                        class="pc__atc btn anim_appear-bottom btn position-absolute border-0 text-uppercase fw-medium js-add-cart js-open-aside"
-                                        data-aside="cartDrawer" title="Add To Cart">Add To Cart</button>
-                                </div>
-
-                                <div class="pc__info position-relative">
-                                    <p class="pc__category">{{ $product->categories->name }}</p>
-                                    <h6 class="pc__title"><a
-                                            href="{{ route('front.details', $product->slug) }}">{{ $product->name }}</a>
-                                    </h6>
-                                    <div class="product-card__price d-flex">
-                                        <span
-                                            class="money price">{{ __('front.format_price') }}{{ number_format($product->price, 0, ',', '.') }}</span>
-                                    </div>
-
-                                    <button
-                                        class="pc__btn-wl position-absolute top-0 end-0 bg-transparent border-0 js-add-wishlist"
-                                        title="Add To Wishlist">
-                                        <svg width="16" height="16" viewBox="0 0 20 20" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <use href="#icon_heart" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        @endforeach
-
-
-                    </div><!-- /.swiper-wrapper -->
-                </div><!-- /.swiper-container js-swiper-slider -->
-
-                <div
-                    class="products-carousel__prev position-absolute top-50 d-flex align-items-center justify-content-center">
-                    <svg width="25" height="25" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_prev_md" />
-                    </svg>
-                </div><!-- /.products-carousel__prev -->
-                <div
-                    class="products-carousel__next position-absolute top-50 d-flex align-items-center justify-content-center">
-                    <svg width="25" height="25" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
-                        <use href="#icon_next_md" />
-                    </svg>
-                </div><!-- /.products-carousel__next -->
-
-                <div class="products-pagination mt-4 mb-5 d-flex align-items-center justify-content-center"></div>
-                <!-- /.products-pagination -->
-            </div><!-- /.position-relative -->
-
-        </section><!-- /.products-carousel container --> --}}
     </main>
 @endsection

@@ -44,7 +44,7 @@
 }
 }'>
             <div class="swiper-wrapper">
-                @foreach ($brands as $brand)
+                @forelse ($brands as $brand)
                     <div class="swiper-slide">
                         <img loading="lazy" class="w-100 h-auto mb-3" src="{{ Storage::url($brand->logo) }}"
                             width="124" height="124" alt="" />
@@ -52,7 +52,10 @@
                             {{ $brand->name }}
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <p>{{ __('front.no_brands_found') }}</p>
+                @endforelse
+
             </div><!-- /.swiper-wrapper -->
         </div><!-- /.swiper-container js-swiper-slider -->
 

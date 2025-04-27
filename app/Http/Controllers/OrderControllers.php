@@ -92,8 +92,6 @@ class OrderControllers extends Controller
         return redirect()->route('front.booking')->with('success', 'Keranjang berhasil diperbarui!');
     }
 
-
-
     public function customerData()
     {
         // dd(session()->all());

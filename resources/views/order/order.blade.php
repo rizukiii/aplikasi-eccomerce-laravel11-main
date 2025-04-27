@@ -6,13 +6,13 @@
     <main>
         <div class="mb-4 pb-4"></div>
         <section class="shop-checkout container">
-            <h2 class="page-title">Cart</h2>
+            <h2 class="page-title">{{ __('order.cart') }}</h2>
             <div class="checkout-steps">
                 <a href="cart.html" class="checkout-steps__item active">
                     <span class="checkout-steps__item-number">01</span>
                     <span class="checkout-steps__item-title">
-                        <span>Shopping Bag</span>
-                        <em>Manage Your Items List</em>
+                        <span>{{ __('order.shopping_bag') }}</span>
+                        <em>{{ __('order.manage_items') }}</em>
                     </span>
                 </a>
             </div>
@@ -36,11 +36,11 @@
                     <table class="cart-table">
                         <thead>
                             <tr>
-                                <th>Product</th>
+                                <th>{{ __('order.product') }}</th>
                                 <th></th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Subtotal</th>
+                                <th>{{ __('order.price') }}</th>
+                                <th>{{ __('order.quantity') }}</th>
+                                <th>{{ __('order.subtotal') }}</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -63,8 +63,8 @@
                                                     <div class="qty-control position-relative mb-2">
                                                         <select name="size" class="form-control">
                                                             @foreach ($product->sizes as $size)
-                                                                <option value="{{ $size->id }}"
-                                                                    {{ $size->size == $orderData['product_size'] ? 'selected' : '' }}>
+                                                                <option value="{{ $size->id }}"{{
+                                                                    $size->size == $orderData['product_size'] ? 'selected' : '' }}>
                                                                     {{ $size->size }}</option>
                                                             @endforeach
                                                         </select>
@@ -74,12 +74,11 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <span
-                                            class="shopping-cart__product-price">Rp{{ number_format($product->price, 0, ',', '.') }}
+                                        <span class="shopping-cart__product-price">Rp{{ number_format($product->price, 0, ',', '.') }}
                                         </span>
                                     </td>
                                     <td>
-                                        <small>Tersedia: {{ $product->stock }}</small>
+                                        <small>{{ __('order.available_stock') }}: {{ $product->stock }}</small>
                                         <div class="qty-control position-relative">
                                             <!-- Quantity dibatasi berdasarkan stok -->
                                             <input type="number" name="quantity" value="{{ old('quantity', $orderData['quantity'] ?? 1) }}"
@@ -98,41 +97,39 @@
                             </tbody>
                     </table>
 
-
-
                     <div class="cart-table-footer">
 
-                        <input class="form-control" type="text" name="coupon_code" placeholder="Coupon Code">
+                        <input class="form-control" type="text" name="coupon_code" placeholder="{{ __('order.coupon_code') }}">
                         <input type="hidden" name="sub_total_amount" value="{{ $orderData['sub_total_amount'] }}">
                         <input type="hidden" name="product_id" value="{{ $product->id }}">
-                        <button type="submit" class="btn btn-light">UPDATE CART</button>
+                        <button type="submit" class="btn btn-light">{{ __('order.update_cart') }}</button>
                         </form>
                     </div>
                 </div>
                 <div class="shopping-cart__totals-wrapper">
                     <div class="sticky-content">
                         <div class="shopping-cart__totals">
-                            <h3>Cart Totals</h3>
+                            <h3>{{ __('order.cart_totals') }}</h3>
                             <table class="cart-totals">
                                 <tbody>
                                     <tr>
-                                        <th>Subtotal</th>
+                                        <th>{{ __('order.subtotal_amount') }}</th>
                                         <td>Rp {{ number_format($orderData['sub_total_amount'], 0, ',', '.') }}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>Disc</th>
+                                        <th>{{ __('order.discount') }}</th>
                                         <td>Rp
                                             {{ number_format($orderData['discount_amount'] ?? 0, 0, ',', '.') }}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>Tax</th>
+                                        <th>{{ __('order.tax') }}</th>
                                         <td>Rp {{ number_format($orderData['total_tax'], 0, ',', '.') }}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>Total</th>
+                                        <th>{{ __('order.total') }}</th>
                                         <td>Rp {{ number_format($orderData['grand_total_amount'], 0, ',', '.') }}
                                         </td>
                                     </tr>
@@ -141,8 +138,7 @@
                         </div>
                         <div class="mobile_fixed-btn_wrapper">
                             <div class="button-wrapper container">
-                                <a href="{{ route('front.customer_data') }}" class="btn btn-primary btn-checkout">PROCEED
-                                    TO CHECKOUT</a>
+                                <a href="{{ route('front.customer_data') }}" class="btn btn-primary btn-checkout">{{ __('order.proceed_to_checkout') }}</a>
                             </div>
                         </div>
                     </div>
@@ -150,7 +146,4 @@
             </div>
         </section>
     </main>
-
-
-
 @endsection

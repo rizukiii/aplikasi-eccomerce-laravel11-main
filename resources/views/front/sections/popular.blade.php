@@ -31,7 +31,8 @@
                 </div>
             </div> --}}
 
-            <a href="{{ route('front.index') }}#all-product" class="btn-link default-underline text-uppercase fw-medium mt-3">{{ __('front.order_now') }}</a>
+            <a href="{{ route('front.index') }}#all-product"
+                class="btn-link default-underline text-uppercase fw-medium mt-3">{{ __('front.order_now') }}</a>
         </div>
         <div class="col-md-6 col-lg-8 col-xl-80per">
             <div class="position-relative">
@@ -70,43 +71,34 @@
               }
             }'>
                     <div class="swiper-wrapper">
-                        @foreach ($popularProducts as $product)
+                        @forelse ($popularProducts as $product)
                             <div class="swiper-slide product-card product-card_style3">
                                 <div class="pc__img-wrapper">
                                     <a href="{{ route('front.details', $product->slug) }}">
-                                        @foreach ($product->photos->take(2) as $photo)
+                                        @forelse ($product->photos->take(2) as $photo)
                                             <img loading="lazy" src="{{ Storage::url($photo->photo) }}" width="258"
                                                 height="313" alt="{{ $product->name }}"
                                                 class="pc__img {{ $loop->last ? 'pc__img-second' : '' }}">
-                                        @endforeach
-
+                                        @empty
+                                            <p>{{ __('front.no_photos_found') }}</p>
+                                        @endforelse
                                     </a>
                                 </div>
 
                                 <div class="pc__info position-relative">
-                                    <h6 class="pc__title"><a href="{{ route('front.details', $product->slug) }}">{{ $product->name }}</a></h6>
+                                    <h6 class="pc__title"><a
+                                            href="{{ route('front.details', $product->slug) }}">{{ $product->name }}</a>
+                                    </h6>
                                     <div class="product-card__price d-flex">
-                                        <span class="money price text-secondary">Rp. {{ number_format($product->price, 0, ',', '.') }},00</span>
-                                    </div>
-
-                                    <div
-                                        class="anim_appear-bottom position-absolute bottom-0 start-0 d-none d-sm-flex align-items-center bg-body">
-                                        <button
-                                            class="btn-link btn-link_lg me-4 text-uppercase fw-medium js-add-cart js-open-aside"
-                                            data-aside="cartDrawer" title="Add To Cart">{{ __('front.add_to_cart') }}</button>
-                                        <button class="btn-link btn-link_lg me-4 text-uppercase fw-medium js-quick-view"
-                                            data-bs-toggle="modal" data-bs-target="#quickView" title="Quick view">
-                                            <span class="d-none d-xxl-block">{{ __('front.quick_view') }}</span>
-                                            <span class="d-block d-xxl-none"><svg width="18" height="18"
-                                                    viewBox="0 0 18 18" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <use href="#icon_view" />
-                                                </svg></span>
-                                        </button>
+                                        <span class="money price text-secondary">Rp.
+                                            {{ number_format($product->price, 0, ',', '.') }},00</span>
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        @empty
+                            <p>{{ __('front.no_popular_products_found') }}</p>
+                        @endforelse
+
 
                     </div><!-- /.swiper-wrapper -->
                 </div><!-- /.swiper-container js-swiper-slider -->

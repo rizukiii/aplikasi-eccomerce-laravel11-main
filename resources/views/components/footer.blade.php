@@ -9,9 +9,9 @@
                             class="logo__image d-block" />
                     </a>
                 </div>
-                <p class="footer-address">123 Beach Avenue, Surfside City, CA 00000(alamat toko)</p>
-                <p class="m-0"><strong class="fw-medium">contact@surfsidemedia.in(email toko)</strong></p>
-                <p><strong class="fw-medium">+1 000-000-0000(no telp toko)</strong></p>
+                <p class="footer-address">{{ __('footer.address') }}</p>
+                <p class="m-0"><strong class="fw-medium">{{ __('footer.email') }}</strong></p>
+                <p><strong class="fw-medium">{{ __('footer.phone') }}</strong></p>
 
                 <ul class="social-links list-unstyled d-flex flex-wrap mb-0">
                     <li>
@@ -58,56 +58,19 @@
                 </ul>
             </div>
 
-            {{-- <div class="footer-column footer-menu mb-4 mb-lg-0">
-                <h6 class="sub-menu__title text-uppercase">Company</h6>
-                <ul class="sub-menu__list list-unstyled">
-                    <li class="sub-menu__item"><a href="about-2.html" class="menu-link menu-link_us-s">About
-                            Us</a></li>
-                    <li class="sub-menu__item"><a href="#" class="menu-link menu-link_us-s">Careers</a>
-                    </li>
-                    <li class="sub-menu__item"><a href="#" class="menu-link menu-link_us-s">Affiliates</a></li>
-                    <li class="sub-menu__item"><a href="blog_list1.html" class="menu-link menu-link_us-s">Blog</a></li>
-                    <li class="sub-menu__item"><a href="contact-2.html" class="menu-link menu-link_us-s">Contact Us</a>
-                    </li>
-                </ul>
-            </div> --}}
-
             <div class="footer-column footer-menu mb-4 mb-lg-0">
-                <h6 class="sub-menu__title text-uppercase">Shop</h6>
+                <h6 class="sub-menu__title text-uppercase">{{ __('footer.shop') }}</h6>
                 <ul class="sub-menu__list list-unstyled">
-                    <li class="sub-menu__item"><a href="{{ route('front.index') }}#new-arrival" class="menu-link menu-link_us-s">New
-                            Arrivals</a></li>
-                    <li class="sub-menu__item"><a href="{{ route('front.index') }}#brands" class="menu-link menu-link_us-s">Brands</a>
-                    </li>
-                    <li class="sub-menu__item"><a href="{{ route('front.index') }}#popular" class="menu-link menu-link_us-s">Populer</a>
-                    </li>
-                    <li class="sub-menu__item"><a href="{{ route('front.index') }}#banner" class="menu-link menu-link_us-s">Banner</a>
-                    </li>
-                    <li class="sub-menu__item"><a href="{{ route('front.index') }}#all-product" class="menu-link menu-link_us-s">Shop
-                            All</a></li>
+                    <li class="sub-menu__item"><a href="{{ route('front.index') }}#new-arrival" class="menu-link menu-link_us-s">{{ __('footer.new_arrivals') }}</a></li>
+                    <li class="sub-menu__item"><a href="{{ route('front.index') }}#brands" class="menu-link menu-link_us-s">{{ __('footer.brands') }}</a></li>
+                    <li class="sub-menu__item"><a href="{{ route('front.index') }}#popular" class="menu-link menu-link_us-s">{{ __('footer.popular') }}</a></li>
+                    <li class="sub-menu__item"><a href="{{ route('front.index') }}#banner" class="menu-link menu-link_us-s">{{ __('footer.banner') }}</a></li>
+                    <li class="sub-menu__item"><a href="{{ route('front.index') }}#all-product" class="menu-link menu-link_us-s">{{ __('footer.shop_all') }}</a></li>
                 </ul>
             </div>
 
-            {{-- <div class="footer-column footer-menu mb-4 mb-lg-0">
-                <h6 class="sub-menu__title text-uppercase">Help</h6>
-                <ul class="sub-menu__list list-unstyled">
-                    <li class="sub-menu__item"><a href="#" class="menu-link menu-link_us-s">Customer
-                            Service</a></li>
-                    <li class="sub-menu__item"><a href="account_dashboard.html" class="menu-link menu-link_us-s">My
-                            Account</a>
-                    </li>
-                    <li class="sub-menu__item"><a href="store_location.html" class="menu-link menu-link_us-s">Find a
-                            Store</a>
-                    </li>
-                    <li class="sub-menu__item"><a href="#" class="menu-link menu-link_us-s">Legal &
-                            Privacy</a></li>
-                    <li class="sub-menu__item"><a href="#" class="menu-link menu-link_us-s">Gift
-                            Card</a></li>
-                </ul>
-            </div> --}}
-
             <div class="footer-column footer-menu mb-4 mb-lg-0">
-                <h6 class="sub-menu__title text-uppercase">Categories</h6>
+                <h6 class="sub-menu__title text-uppercase">{{ __('footer.categories') }}</h6>
                 <ul class="sub-menu__list list-unstyled">
                     @foreach ($categories as $category)
                         <li class="sub-menu__item">
@@ -124,16 +87,14 @@
 
     <div class="footer-bottom">
         <div class="container d-md-flex align-items-center">
-            <span class="footer-copyright me-auto">©2025 Surfside Media(nama toko)</span>
+            <span class="footer-copyright me-auto">{{ __('footer.copyright') }}</span>
             <div class="footer-settings d-md-flex align-items-center">
-                <a href="#">Privacy Policy</a> &nbsp;|&nbsp; <a href="#">Terms
-                    &amp;
-                    Conditions</a>
+                <a href="#">{{ __('footer.privacy_policy') }}</a> &nbsp;|&nbsp;
+                <a href="#">{{ __('footer.terms_conditions') }}</a>
             </div>
         </div>
     </div>
 </footer>
-
 
 <footer class="footer-mobile container w-100 px-5 d-md-none bg-body">
     <div class="row text-center">
@@ -143,7 +104,7 @@
                     xmlns="http://www.w3.org/2000/svg">
                     <use href="#icon_home" />
                 </svg>
-                <span>Home</span>
+                <span>{{ __('footer.home') }}</span>
             </a>
         </div>
 
@@ -153,7 +114,7 @@
                     xmlns="http://www.w3.org/2000/svg">
                     <use href="#icon_hanger" />
                 </svg>
-                <span>Shop</span>
+                <span>{{ __('footer.shop') }}</span>
             </a>
         </div>
 
@@ -166,7 +127,7 @@
                     </svg>
                     <span class="wishlist-amount d-block position-absolute js-wishlist-count">3</span>
                 </div>
-                <span>Wishlist</span>
+                <span>{{ __('footer.wishlist') }}</span>
             </a>
         </div>
     </div>

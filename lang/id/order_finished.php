@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'order_received' => 'Pesanan Diterima',
+    'confirmation' => 'Konfirmasi',
+    'review_and_submit_order' => 'Tinjau dan Kirim Pesanan Anda',
+    'your_order_is_completed' => 'Pesanan Anda telah selesai!',
+    'thank_you' => 'Terima kasih. Pesanan Anda telah diterima.',
+    'order_number' => 'Nomor Pesanan',
+    'date' => 'Tanggal',
+    'post_code' => 'Kode Pos',
+    'name' => 'Nama',
+    'phone' => 'Telepon',
+    'email' => 'Email',
+    'city' => 'Kota',
+    'address' => 'Alamat',
+    'order_details' => 'Rincian Pesanan',
+    'product' => 'Produk',
+    'subtotal' => 'Subtotal',
+    'shipping' => 'Pengiriman',
+    'free_shipping' => 'Pengiriman Gratis',
+    'disc' => 'Diskon',
+    'total' => 'Total',
+    'back_to_home' => 'Kembali ke Beranda',
+];

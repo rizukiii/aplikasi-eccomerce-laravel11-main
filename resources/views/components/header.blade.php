@@ -14,11 +14,11 @@
         </div>
 
         <a href="{{ route('front.booking') }}" class="header-tools__item header-tools__cart js-open-aside" data-aside="cartDrawer">
-            <svg class="d-block" width="20" height="20" viewBox="0 0 20 20" fill="none"
+            {{-- <svg class="d-block" width="20" height="20" viewBox="0 0 20 20" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <use href="#icon_cart" />
-            </svg>
-            <span class="cart-amount d-block position-absolute js-cart-items-count">3</span>
+            </svg> --}}
+            {{-- <span class="cart-amount d-block position-absolute js-cart-items-count">3</span> --}}
         </a>
     </div>
 
@@ -48,13 +48,13 @@
             <div class="overflow-hidden">
                 <ul class="navigation__list list-unstyled position-relative">
                     <li class="navigation__item">
-                        <a href="{{ route('front.index') }}" class="navigation__link">Home</a>
+                        <a href="{{ route('front.index') }}" class="navigation__link">{{ __('header.home') }}</a>
                     </li>
                     <li class="navigation__item">
-                        <a href="{{ route('front.index') }}#popular" class="navigation__link">Shop</a>
+                        <a href="{{ route('front.index') }}#popular" class="navigation__link">{{ __('header.shop') }}</a>
                     </li>
                     <li class="navigation__item">
-                        <a href="{{ route('front.booking') }}" class="navigation__link">Cart</a>
+                        <a href="{{ route('front.booking') }}" class="navigation__link">{{ __('header.cart') }}</a>
                     </li>
                     {{-- <li class="navigation__item">
                         <a href="about.html" class="navigation__link">About</a>
@@ -67,13 +67,13 @@
         </div>
 
         <div class="border-top mt-auto pb-2">
-            <div class="customer-links container mt-4 mb-2 pb-1">
+            {{-- <div class="customer-links container mt-4 mb-2 pb-1">
                 <svg class="d-inline-block align-middle" width="20" height="20" viewBox="0 0 20 20"
                     fill="none" xmlns="http://www.w3.org/2000/svg">
                     <use href="#icon_user" />
                 </svg>
                 <span class="d-inline-block ms-2 text-uppercase align-middle fw-medium">My Account</span>
-            </div>
+            </div> --}}
 
 
 
@@ -143,7 +143,7 @@
                     <li class="navigation__item dropdown">
                         <a href="#" class="navigation__link dropdown-toggle" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Categories
+                            {{ __('header.category') }}
                         </a>
                         <ul class="dropdown-menu">
                             @foreach ($categories as $category)
@@ -157,7 +157,7 @@
                     </li>
 
                     <li class="navigation__item">
-                        <a href="{{ route('front.booking') }}" class="navigation__link">Cart</a>
+                        <a href="{{ route('front.booking') }}" class="navigation__link">{{ __('header.cart') }}</a>
                     </li>
 
                     {{-- <li class="navigation__item">
@@ -188,13 +188,13 @@
 
                             <div class="search-popup__results">
                                 <div class="sub-menu search-suggestion">
-                                    <h6 class="sub-menu__title fs-base">Quicklinks</h6>
+                                    <h6 class="sub-menu__title fs-base">{{ __('header.quick_links') }}</h6>
                                     <ul class="sub-menu__list list-unstyled">
                                         <li class="sub-menu__item"><a href="{{ route('front.index') }}"
-                                                class="menu-link menu-link_us-s">Beranda</a>
+                                                class="menu-link menu-link_us-s">{{ __('header.home') }}</a>
                                         </li>
                                         <li class="sub-menu__item"><a href="{{ route('front.index') }}#popular"
-                                                class="menu-link menu-link_us-s">Order</a>
+                                                class="menu-link menu-link_us-s">{{ __('header.cart') }}</a>
                                         </li>
                                     </ul>
                                 </div>
