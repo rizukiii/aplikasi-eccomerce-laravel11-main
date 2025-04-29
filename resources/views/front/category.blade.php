@@ -23,10 +23,10 @@
                                         href="{{ route('front.details', $product->slug) }}">{{ $product->name }}</a></h6>
                                 <div class="product-card__price d-flex align-items-center">
                                     <span
-                                        class="money price text-secondary">{{ __('front.format_price') }}{{ number_format($product->price, 0, ',', '.') }}{{ __('front.format_price_decimal') }}</span>
+                                        class="money price text-secondary">{{ __('front.format_price') }}{{ number_format($product->price, 0, ',', '.') }}</span>
                                 </div>
 
-                                <div
+                                {{-- <div
                                     class="anim_appear-bottom position-absolute bottom-0 start-0 d-none d-sm-flex align-items-center bg-body">
                                     <button
                                         class="btn-link btn-link_lg me-4 text-uppercase fw-medium js-add-cart js-open-aside"
@@ -39,7 +39,7 @@
                                                 <use href="#icon_view" />
                                             </svg></span>
                                     </button>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>

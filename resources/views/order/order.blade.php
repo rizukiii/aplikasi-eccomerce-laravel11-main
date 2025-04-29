@@ -60,7 +60,7 @@
                                             <ul class="shopping-cart__product-item__options">
                                                 <!-- Dropdown untuk ukuran -->
                                                 <li>
-                                                    <div class="qty-control position-relative mb-2">
+                                                    <div class="qty-control position-relative">
                                                         <select name="size" class="form-control">
                                                             @foreach ($product->sizes as $size)
                                                                 <option value="{{ $size->id }}"{{
@@ -78,12 +78,12 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <small>{{ __('order.available_stock') }}: {{ $product->stock }}</small>
                                         <div class="qty-control position-relative">
                                             <!-- Quantity dibatasi berdasarkan stok -->
                                             <input type="number" name="quantity" value="{{ old('quantity', $orderData['quantity'] ?? 1) }}"
-                                                min="1" max="{{ $product->stock }}"
-                                                class="qty-control__number text-center" required>
+                                            min="1" max="{{ $product->stock }}"
+                                            class="form-control text-center mt-5" required>
+                                            <small>{{ __('order.available_stock') }}: {{ $product->stock }}</small>
 
                                         </div>
                                     </td>

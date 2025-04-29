@@ -13,7 +13,8 @@
             </a>
         </div>
 
-        <a href="{{ route('front.booking') }}" class="header-tools__item header-tools__cart js-open-aside" data-aside="cartDrawer">
+        <a href="{{ route('front.booking') }}" class="header-tools__item header-tools__cart js-open-aside"
+            data-aside="cartDrawer">
             {{-- <svg class="d-block" width="20" height="20" viewBox="0 0 20 20" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <use href="#icon_cart" />
@@ -50,19 +51,35 @@
                     <li class="navigation__item">
                         <a href="{{ route('front.index') }}" class="navigation__link">{{ __('header.home') }}</a>
                     </li>
-                    <li class="navigation__item">
-                        <a href="{{ route('front.index') }}#popular" class="navigation__link">{{ __('header.shop') }}</a>
+                    <li class="navigation__item dropdown">
+                        <a href="#mobileCategories" class="navigation__link" data-bs-toggle="collapse"
+                            aria-expanded="false">
+                            {{ __('header.category') }}
+                        </a>
+                        <ul class="collapse list-unstyled ps-3" id="mobileCategories">
+                            @foreach ($categories as $category)
+                                <li class="navigation__item">
+                                    <a href="{{ route('front.category', $category->slug) }}" class="navigation__link">
+                                        {{ $category->name }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
                     </li>
+
                     <li class="navigation__item">
-                        <a href="{{ route('front.booking') }}" class="navigation__link">{{ __('header.cart') }}</a>
+                        <a href="{{ route('front.allProduct') }}"
+                            class="navigation__link">{{ __('header.products') }}</a>
                     </li>
-                    {{-- <li class="navigation__item">
-                        <a href="about.html" class="navigation__link">About</a>
-                    </li>
-                    <li class="navigation__item">
-                        <a href="contact.html" class="navigation__link">Contact</a>
-                    </li> --}}
+                    @if (session()->has('orderData.products_id'))
+                        <li class="navigation__item">
+                            <a href="{{ route('front.booking') }}"
+                                class="navigation__link">{{ __('header.cart') }}</a>
+                        </li>
+                    @endif
+
                 </ul>
+
             </div>
         </div>
 
@@ -155,10 +172,16 @@
                             @endforeach
                         </ul>
                     </li>
-
                     <li class="navigation__item">
-                        <a href="{{ route('front.booking') }}" class="navigation__link">{{ __('header.cart') }}</a>
+                        <a href="{{ route('front.allProduct') }}"
+                            class="navigation__link">{{ __('header.products') }}</a>
                     </li>
+                    @if (session()->has('orderData.products_id'))
+                        <li class="navigation__item">
+                            <a href="{{ route('front.booking') }}"
+                                class="navigation__link">{{ __('header.cart') }}</a>
+                        </li>
+                    @endif
 
                     {{-- <li class="navigation__item">
                         <a href="about.html" class="navigation__link">About</a>
@@ -172,7 +195,7 @@
 
             <div class="header-tools d-flex align-items-center">
                 <div class="header-tools__item hover-container">
-                    <div class="js-hover__open position-relative">
+                    {{-- <div class="js-hover__open position-relative">
                         <a class="js-search-popup search-field__actor" href="#">
                             <svg class="d-block" width="20" height="20" viewBox="0 0 20 20" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -180,7 +203,7 @@
                             </svg>
                             <i class="btn-icon btn-close-lg"></i>
                         </a>
-                    </div>
+                    </div> --}}
 
                     <div class="search-popup js-hidden-content">
                         <form action="#" method="GET" class="search-field container">

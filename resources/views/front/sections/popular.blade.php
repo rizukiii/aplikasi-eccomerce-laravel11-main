@@ -31,8 +31,8 @@
                 </div>
             </div> --}}
 
-            <a href="{{ route('front.index') }}#all-product"
-                class="btn-link default-underline text-uppercase fw-medium mt-3">{{ __('front.order_now') }}</a>
+            <p
+                class="btn-link default-underline text-uppercase fw-medium mt-3">Ayo Pesan Sekarang juga!!!!!!!!!!</p>
         </div>
         <div class="col-md-6 col-lg-8 col-xl-80per">
             <div class="position-relative">
@@ -91,7 +91,7 @@
                                     </h6>
                                     <div class="product-card__price d-flex">
                                         <span class="money price text-secondary">Rp.
-                                            {{ number_format($product->price, 0, ',', '.') }},00</span>
+                                            {{ number_format($product->price, 0, ',', '.') }}</span>
                                     </div>
                                 </div>
                             </div>

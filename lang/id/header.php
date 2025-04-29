@@ -6,5 +6,6 @@ return [
 'cart' => 'Keranjang',
 'quick_links' => 'Link Cepat',
 'category' => 'Kategori',
+'products' => 'Produk',
 ];
 

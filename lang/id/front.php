@@ -29,9 +29,10 @@ return [
     'no_sizes_available' => 'Tidak ada ukuran tersedia',
     'product_details' => 'Detail Produk',
     'zoom' => 'Zoom',
-    'the_shop' => 'The Shop',
+    'detail_product' => 'Detail Produk',
     'select_size' => 'Pilih Size',
     'available_stock' => 'Tersedia',
     'size' => 'Size',
     'brand' => 'Merek',
+    'all_product' => 'Semua Produk',
 ];

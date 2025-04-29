@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/',[FrontControllers::class, 'index'])->name('front.index');
 Route::get('/browse/{slug}',[FrontControllers::class, 'category'])->name('front.category');
+Route::get('/all-product',[FrontControllers::class, 'allProduct'])->name('front.allProduct');
 Route::get('/details/{slug}',[FrontControllers::class, 'details'])->name('front.details');
 
 Route::post('/order/begin/{slug}',[OrderControllers::class, 'saveOrder'])->name('front.save_order');

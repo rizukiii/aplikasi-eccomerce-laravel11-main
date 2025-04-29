@@ -38,6 +38,7 @@ class OrderControllers extends Controller
         // dd(session()->all());
         $data = $this->orderService->getOrderDetails();
 
+
         // Debug untuk memastikan bentuknya
         // dd($data);
         return view('order.order', $data);
@@ -50,7 +51,7 @@ class OrderControllers extends Controller
         $validated = $request->validated();
 
         // Update data order
-        $orderData = $this->orderService->updateCartData( $validated);
+        $orderData = $this->orderService->updateCartData($validated);
 
         // Update data ke session
         $this->orderService->updateCustomerData($orderData);

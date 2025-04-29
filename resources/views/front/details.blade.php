@@ -8,48 +8,32 @@
         <section class="product-single container">
             <div class="row">
                 <div class="col-lg-7">
-                    <div class="product-single__media" data-media-type="vertical-thumbnail">
-                        <div class="product-single__image">
-                            <div class="swiper-container">
-                                <div class="swiper-wrapper">
-                                    @forelse ($product->photos as $photo)
-                                        <div class="swiper-slide product-single__image-item">
-                                            <img loading="lazy" class="h-auto" src="{{ Storage::url($photo->photo) }}"
-                                                width="674" height="674" alt="{{ $product->name }}" />
-                                            <a data-fancybox="gallery" href="{{ Storage::url($photo->photo) }}"
-                                                data-bs-toggle="tooltip" data-bs-placement="left" title="{{ __('front.zoom') }}">
-                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <use href="#icon_zoom" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    @empty
-                                        <p>{{ __('front.no_photos_available') }}</p>
-                                    @endforelse
-                                </div>
-                                <div class="swiper-button-prev"><svg width="7" height="11" viewBox="0 0 7 11"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <use href="#icon_prev_sm" />
-                                    </svg></div>
-                                <div class="swiper-button-next"><svg width="7" height="11" viewBox="0 0 7 11"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <use href="#icon_next_sm" />
-                                    </svg></div>
-                            </div>
+                    <div class="row">
+                        <div class="col-3 d-block">
+                            <img src="{{ Storage::url($product->thumbnail) }}" alt=""
+                            class="mb-3 img-thumbnail zoom-thumbnail"
+                                    style="width: 100%; height: 150px; object-fit: cover; cursor: pointer;">
+                            @forelse ($productImages as $item)
+                                <img src="{{ Storage::url($item->photo) }}" alt=""
+                                    class="mb-3 img-thumbnail zoom-thumbnail"
+                                    style="width: 100%; height: 150px; object-fit: cover; cursor: pointer;">
+                            @empty
+                            @endforelse
                         </div>
-                        <div class="product-single__thumbnail">
-                            <div class="swiper-container">
-                                <div class="swiper-wrapper">
-                                    @forelse ($product->photos as $photo)
-                                        <div class="swiper-slide product-single__image-item">
-                                            <img loading="lazy" class="h-auto" src="{{ Storage::url($photo->photo) }}"
-                                                width="104" height="104" alt="{{ $product->name }}" />
-                                        </div>
-                                    @empty
-                                        <p>{{ __('front.no_photos_available') }}</p>
-                                    @endforelse
-                                </div>
+                        <div class="col-9">
+                            <img id="mainImage" src="{{ Storage::url($product->thumbnail) }}" alt=""
+                                style="width: 100%; height: 600px; object-fit: cover;" data-bs-toggle="modal"
+                                data-bs-target="#previewModal">
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal untuk Preview Gambar -->
+                <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content bg-transparent border-0">
+                            <div class="modal-body p-0">
+                                <img id="previewImage" src="" class="img-fluid w-100" alt="Preview">
                             </div>
                         </div>
                     </div>
@@ -57,12 +41,15 @@
                 <div class="col-lg-5">
                     <div class="d-flex justify-content-between mb-4 pb-md-2">
                         <div class="breadcrumb mb-0 d-none d-md-block flex-grow-1">
-                            <a href="#" class="menu-link menu-link_us-s text-uppercase fw-medium">{{ __('front.home') }}</a>
+                            <a href="{{ route('front.index') }}"
+                                class="menu-link menu-link_us-s text-uppercase fw-medium">{{ __('front.home') }}</a>
                             <span class="breadcrumb-separator menu-link fw-medium ps-1 pe-1">/</span>
-                            <a href="#" class="menu-link menu-link_us-s text-uppercase fw-medium">{{ __('front.the_shop') }}</a>
+                            <p
+                                class="menu-link menu-link_us-s text-uppercase fw-medium">{{ __('front.detail_product') }}</p>
                         </div><!-- /.breadcrumb -->
 
-                        <div class="product-single__prev-next d-flex align-items-center justify-content-between justify-content-md-end flex-grow-1">
+                        <div
+                            class="product-single__prev-next d-flex align-items-center justify-content-between justify-content-md-end flex-grow-1">
                         </div><!-- /.shop-acs -->
                     </div>
                     <h1 class="product-single__name">{{ $product->name }}</h1>
@@ -92,25 +79,26 @@
                         <div class="product-single__addtocart">
                             <!-- SIZE SELECT -->
                             <div class="qty-control position-relative mb-2">
-                                <select name="size_id" required class="form-control">
-                                    <option value="">{{ __('front.select_size') }}</option>
+                                <select name="size_id" required class="form-control ">
+                                    <option value="">-- {{ __('front.select_size') }} --</option>
                                     @forelse ($product->sizes as $size)
-                                    <option value="{{ $size->id }}">{{ $size->size }}</option>
-                                @empty
-                                    <option disabled>{{ __('front.no_sizes_available') }}</option>
-                                @endforelse
+                                        <option value="{{ $size->id }}">{{ $size->size }}</option>
+                                    @empty
+                                        <option disabled>{{ __('front.no_sizes_available') }}</option>
+                                    @endforelse
                                 </select>
                             </div>
 
                             <!-- QUANTITY CONTROL -->
-                            <div class="qty-control" data-product-id="{{ $product->id }}">
+                            <div class="qty-control position-relative mt-3" data-product-id="{{ $product->id }}">
                                 <input type="number" name="quantity" value="1" min="1"
-                                    max="{{ $product->stock }}" class="qty-control__number text-center">
+                                    max="{{ $product->stock }}" class="form-control text-center">
                                 <small>{{ __('front.available_stock') }}: {{ $product->stock }}</small>
                             </div>
 
                             <!-- SUBMIT -->
-                            <button type="submit" class="btn btn-primary btn-addtocart">{{ __('front.add_to_cart') }}</button>
+                            <button type="submit"
+                                class="btn btn-primary btn-addtocart mb-2">{{ __('front.add_to_cart') }}</button>
                         </div>
                     </form>
 

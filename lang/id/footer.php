@@ -12,7 +12,7 @@ return [
     'brands' => 'Merek',
     'popular' => 'Populer',
     'banner' => 'Banner',
-    'shop_all' => 'Toko Semua',
+    'shop_all' => 'Semua Produk',
     'categories' => 'Kategori',
     'home' => 'Beranda',
     'wishlist' => 'Daftar Keinginan',

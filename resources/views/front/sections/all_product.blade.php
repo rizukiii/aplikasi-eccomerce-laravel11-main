@@ -19,10 +19,10 @@
                                 href="{{ route('front.details', $product->slug) }}">{{ $product->name }}</a></h6>
                         <div class="product-card__price d-flex align-items-center">
                             <span
-                                class="money price text-secondary">{{ __('front.format_price') }}{{ number_format($product->price, 0, ',', '.') }}{{ __('front.format_price_decimal') }}</span>
+                                class="money price text-secondary">{{ __('front.format_price') }}{{ number_format($product->price, 0, ',', '.') }}</span>
                         </div>
 
-                        <div
+                        {{-- <div
                             class="anim_appear-bottom position-absolute bottom-0 start-0 d-none d-sm-flex align-items-center bg-body">
                             <button class="btn-link btn-link_lg me-4 text-uppercase fw-medium js-add-cart js-open-aside"
                                 data-aside="cartDrawer" title="Add To Cart">{{ __('front.add_to_cart') }}</button>
@@ -34,7 +34,7 @@
                                         <use href="#icon_view" />
                                     </svg></span>
                             </button>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -42,6 +42,9 @@
             <p>{{ __('front.no_products_found') }}</p>
         @endforelse
 
+        <div class="text-center mt-2">
+            <a class="btn-link btn-link_lg default-underline text-uppercase fw-medium" href="{{ route('front.allProduct') }}">Semua Produk</a>
+          </div>
     </div><!-- /.row -->
 </section>
 

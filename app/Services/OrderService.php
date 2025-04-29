@@ -56,6 +56,11 @@ class OrderService
     {
         $orderData = $this->orderRepository->getOrderDataFromSession();
 
+        // 🚨 Cek dulu apakah products_id ada
+        if (!isset($orderData['products_id'])) {
+            return redirect()->back()->with('error', 'Silahkan pilih produk dahulu.');
+        }
+
         // Cek apakah ada produk yang diambil di session
         $product = $this->productRepository->find($orderData['products_id']);
 

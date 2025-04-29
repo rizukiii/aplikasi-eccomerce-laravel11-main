@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categories;
+use App\Models\ProductImages;
 use App\Models\Products;
 use App\Services\FrontService;
 use Illuminate\Http\Request;
@@ -27,10 +28,12 @@ class FrontControllers extends Controller
 
     public function details($slug)
     {
-        $product = Products::where('slug',$slug)->first();
+        $product = Products::where('slug',$slug)->with('photos')->first();
         $allProduct = Products::with('categories')->get();
+        $productImages = ProductImages::where('products_id', $product->id)->get();
 
-        return view('front.details', compact('product', 'allProduct'));
+
+        return view('front.details', compact('product', 'allProduct','productImages'));
     }
 
     public function category($slug)
@@ -39,5 +42,10 @@ class FrontControllers extends Controller
 
         return view('front.category', compact('category'));
 
+    }
+
+    public function allProduct(){
+        $products = Products::all();
+        return view('front.products',compact('products'));
     }
 }

@@ -62,10 +62,10 @@
                 <h6 class="sub-menu__title text-uppercase">{{ __('footer.shop') }}</h6>
                 <ul class="sub-menu__list list-unstyled">
                     <li class="sub-menu__item"><a href="{{ route('front.index') }}#new-arrival" class="menu-link menu-link_us-s">{{ __('footer.new_arrivals') }}</a></li>
-                    <li class="sub-menu__item"><a href="{{ route('front.index') }}#brands" class="menu-link menu-link_us-s">{{ __('footer.brands') }}</a></li>
+                    {{-- <li class="sub-menu__item"><a href="{{ route('front.index') }}#brands" class="menu-link menu-link_us-s">{{ __('footer.brands') }}</a></li> --}}
                     <li class="sub-menu__item"><a href="{{ route('front.index') }}#popular" class="menu-link menu-link_us-s">{{ __('footer.popular') }}</a></li>
-                    <li class="sub-menu__item"><a href="{{ route('front.index') }}#banner" class="menu-link menu-link_us-s">{{ __('footer.banner') }}</a></li>
-                    <li class="sub-menu__item"><a href="{{ route('front.index') }}#all-product" class="menu-link menu-link_us-s">{{ __('footer.shop_all') }}</a></li>
+                    {{-- <li class="sub-menu__item"><a href="{{ route('front.index') }}#banner" class="menu-link menu-link_us-s">{{ __('footer.banner') }}</a></li> --}}
+                    <li class="sub-menu__item"><a href="{{ route('front.allProduct') }}" class="menu-link menu-link_us-s">{{ __('footer.shop_all') }}</a></li>
                 </ul>
             </div>
 
@@ -85,7 +85,7 @@
         </div>
     </div>
 
-    <div class="footer-bottom">
+    {{-- <div class="footer-bottom">
         <div class="container d-md-flex align-items-center">
             <span class="footer-copyright me-auto">{{ __('footer.copyright') }}</span>
             <div class="footer-settings d-md-flex align-items-center">
@@ -93,10 +93,10 @@
                 <a href="#">{{ __('footer.terms_conditions') }}</a>
             </div>
         </div>
-    </div>
+    </div> --}}
 </footer>
 
-<footer class="footer-mobile container w-100 px-5 d-md-none bg-body">
+{{-- <footer class="footer-mobile container w-100 px-5 d-md-none bg-body">
     <div class="row text-center">
         <div class="col-4">
             <a href="{{ route('front.index') }}" class="footer-mobile__link d-flex flex-column align-items-center">
@@ -131,7 +131,7 @@
             </a>
         </div>
     </div>
-</footer>
+</footer> --}}
 
 <div id="scrollTop" class="visually-hidden end-0"></div>
 <div class="page-overlay"></div>

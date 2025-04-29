@@ -55,7 +55,6 @@
                 @empty
                     <p>{{ __('front.no_brands_found') }}</p>
                 @endforelse
-
             </div><!-- /.swiper-wrapper -->
         </div><!-- /.swiper-container js-swiper-slider -->
 
